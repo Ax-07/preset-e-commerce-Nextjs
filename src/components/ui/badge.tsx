@@ -15,9 +15,12 @@ const badgeVariants = cva(
         destructive:
           "border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80",
         outline: "text-foreground",
+        rounded: "flex items-center justify-center border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80 rounded-full aspect-square",
+
       },
       size: {
-        default: "text-xs",
+        default: "",
+        xs: "h-4 p-0 text-[10px]",
         sm: "py-0.125 text-[10px]",
         lg: "text-md",
       }
