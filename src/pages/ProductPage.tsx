@@ -3,8 +3,6 @@
 import React from "react";
 import { PRODUCTS } from "@/products.exemple";
 import Link from "next/link";
-import { getCategoryPath } from "@/src/utils/getCategoryPath";
-import { slugify } from "@/src/utils/slug";
 
 interface ProductPageProps {
   productId: string;
@@ -17,8 +15,6 @@ export default function ProductPage({ productId, categorySegments }: ProductPage
     return <p>Produit non trouvé.</p>;
   }
 
-  // Facultatif : reconstruire le chemin pour Breadcrumbs ou navigation
-  const categoryPath = product.category ? getCategoryPath(product.category) : [];
   const backLink = "/produits/" + (categorySegments.join("/") || "");
 
   return (
@@ -39,7 +35,7 @@ export default function ProductPage({ productId, categorySegments }: ProductPage
           <source src={product.primaryMedia.url} type="video/mp4" />
         </video>
       )}
-      <p className="text-xl font-semibold">{product.price.toFixed(2)} €</p>
+      <p className="text-xl font-semibold">{product.price?.toFixed(2)} €</p>
       <p>{product.description}</p>
       {/* Vous pouvez afficher ici stock, avis, etc. */}
     </div>
