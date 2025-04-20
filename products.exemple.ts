@@ -6,6 +6,7 @@ export const PRODUCTS: Product[] = [
     name: "Huile de CBD 10%",
     description: "Huile de CBD biologique, arôme naturel de chanvre.",
     price: 39.99,
+    stock: { quantity: 30 },
     primaryMedia: {
       url: "https://placehold.co/200x200",
       alt: "Bouteille d'huile de CBD 10%",
@@ -19,7 +20,6 @@ export const PRODUCTS: Product[] = [
       ],
     },
     reviewSummary: { averageRating: 4.7, totalReviews: 120 },
-    stock: { quantity: 30 },
     marketingStatus: { isBestSeller: true },
     promotion: { isOnSale: true, salePrice: 34.99 },
   },
@@ -28,6 +28,7 @@ export const PRODUCTS: Product[] = [
     name: "Huile de CBD 20%",
     description: "Huile de CBD biologique à haute concentration.",
     price: 69.99,
+    stock: { quantity: 18 },
     primaryMedia: {
       url: "https://placehold.co/200x200",
       alt: "Bouteille d'huile de CBD 20%",
@@ -41,7 +42,6 @@ export const PRODUCTS: Product[] = [
       ],
     },
     reviewSummary: { averageRating: 4.8, totalReviews: 95 },
-    stock: { quantity: 18 },
     marketingStatus: { isNew: true },
   },
   {
@@ -49,6 +49,7 @@ export const PRODUCTS: Product[] = [
     name: "Capsules de CBD 25 mg",
     description: "Capsules végétales dosées à 25 mg de CBD chacune.",
     price: 29.99,
+    stock: { quantity: 40 },
     primaryMedia: {
       url: "https://placehold.co/200x200",
       alt: "Flacon de capsules de CBD 25 mg",
@@ -62,7 +63,6 @@ export const PRODUCTS: Product[] = [
       ],
     },
     reviewSummary: { averageRating: 4.5, totalReviews: 75 },
-    stock: { quantity: 40 },
     marketingStatus: { isPopular: true },
   },
   // Mix générique de fleurs
@@ -70,11 +70,9 @@ export const PRODUCTS: Product[] = [
     id: "4",
     name: "Fleurs de CBD Indoor Mix",
     description: "Sélection mixte de fleurs de CBD indoor, variété douce et aromatique.",
-    price: 16.99,
-    primaryMedia: {
-      url: "https://placehold.co/200x200",
-      alt: "Pochette de fleurs de CBD indoor mix",
-      type: "image",
+    price: 10 * 4, // 10g par défaut
+    stock: {
+      quantity: 50,
     },
     category: {
       name: "Fleurs",
@@ -83,20 +81,34 @@ export const PRODUCTS: Product[] = [
         { name: "Indoor", description: "Cultivées en intérieur" },
       ],
     },
+    options: [
+      {
+        id: "poids",
+        name: "Quantité",
+        values: [
+          { id: "10g", name: "10 g", priceModifier: 0, stock: { quantity: 50 }, isDefault: true },
+          { id: "25g", name: "25 g", priceModifier: 25 * 3.6 - 10 * 4, stock: { quantity: 40 } },
+          { id: "50g", name: "50 g", priceModifier: 50 * 3.2 - 10 * 4, stock: { quantity: 30 } },
+          { id: "100g", name: "100 g", priceModifier: 100 * 2.8 - 10 * 4, stock: { quantity: 20 } },
+        ],
+      },
+    ],
+    primaryMedia: {
+      url: "https://placehold.co/200x200",
+      alt: "Pochette de fleurs de CBD indoor mix",
+      type: "image",
+      isPrimary: true,
+    },
     reviewSummary: { averageRating: 4.6, totalReviews: 88 },
-    stock: { quantity: 50 },
-    promotion: { isOnSale: true, salePrice: 14.99 },
   },
   // Variétés spécifiques
   {
     id: "11",
     name: "Fleurs de CBD White Widow",
     description: "Fleurs de CBD, variété White Widow, arômes doux et floraux.",
-    price: 17.99,
-    primaryMedia: {
-      url: "https://placehold.co/200x200",
-      alt: "Pochette de fleurs de CBD White Widow",
-      type: "image",
+    price: 10 * 4,
+    stock: {
+      quantity: 50,
     },
     category: {
       name: "Fleurs",
@@ -105,18 +117,33 @@ export const PRODUCTS: Product[] = [
         { name: "White Widow", description: "Variété White Widow" },
       ],
     },
+    options: [
+      {
+        id: "poids",
+        name: "Quantité",
+        values: [
+          { id: "10g", name: "10 g", priceModifier: 0, stock: { quantity: 35 }, isDefault: true },
+          { id: "25g", name: "25 g", priceModifier: 25 * 3.6 - 10 * 4, stock: { quantity: 25 } },
+          { id: "50g", name: "50 g", priceModifier: 50 * 3.2 - 10 * 4, stock: { quantity: 15 } },
+          { id: "100g", name: "100 g", priceModifier: 100 * 2.8 - 10 * 4, stock: { quantity: 10 } },
+        ],
+      },
+    ],
+    primaryMedia: {
+      url: "https://placehold.co/200x200",
+      alt: "Pochette de fleurs de CBD White Widow",
+      type: "image",
+      isPrimary: true,
+    },
     reviewSummary: { averageRating: 4.7, totalReviews: 40 },
-    stock: { quantity: 35 },
   },
   {
     id: "12",
     name: "Fleurs de CBD AK-47",
     description: "Fleurs de CBD, variété AK-47, arômes épicés et terreux.",
-    price: 18.49,
-    primaryMedia: {
-      url: "https://placehold.co/200x200",
-      alt: "Pochette de fleurs de CBD AK-47",
-      type: "image",
+    price: 10 * 4,
+    stock: {
+      quantity: 50,
     },
     category: {
       name: "Fleurs",
@@ -125,18 +152,33 @@ export const PRODUCTS: Product[] = [
         { name: "AK-47", description: "Variété AK-47" },
       ],
     },
+    options: [
+      {
+        id: "poids",
+        name: "Quantité",
+        values: [
+          { id: "10g", name: "10 g", priceModifier: 0, stock: { quantity: 28 }, isDefault: true },
+          { id: "25g", name: "25 g", priceModifier: 25 * 3.6 - 10 * 4, stock: { quantity: 20 } },
+          { id: "50g", name: "50 g", priceModifier: 50 * 3.2 - 10 * 4, stock: { quantity: 12 } },
+          { id: "100g", name: "100 g", priceModifier: 100 * 2.8 - 10 * 4, stock: { quantity: 5 } },
+        ],
+      },
+    ],
+    primaryMedia: {
+      url: "https://placehold.co/200x200",
+      alt: "Pochette de fleurs de CBD AK-47",
+      type: "image",
+      isPrimary: true,
+    },
     reviewSummary: { averageRating: 4.5, totalReviews: 30 },
-    stock: { quantity: 28 },
   },
   {
     id: "13",
     name: "Fleurs de CBD Orange Bud",
     description: "Fleurs de CBD, variété Orange Bud, notes agrumées et douces.",
-    price: 16.49,
-    primaryMedia: {
-      url: "https://placehold.co/200x200",
-      alt: "Pochette de fleurs de CBD Orange Bud",
-      type: "image",
+    price: 10 * 4,
+    stock: {
+      quantity: 50,
     },
     category: {
       name: "Fleurs",
@@ -145,14 +187,34 @@ export const PRODUCTS: Product[] = [
         { name: "Orange Bud", description: "Variété Orange Bud" },
       ],
     },
+    options: [
+      {
+        id: "poids",
+        name: "Quantité",
+        values: [
+          { id: "10g", name: "10 g", priceModifier: 0, stock: { quantity: 30 }, isDefault: true },
+          { id: "25g", name: "25 g", priceModifier: 25 * 3.6 - 10 * 4, stock: { quantity: 22 } },
+          { id: "50g", name: "50 g", priceModifier: 50 * 3.2 - 10 * 4, stock: { quantity: 14 } },
+          { id: "100g", name: "100 g", priceModifier: 100 * 2.8 - 10 * 4, stock: { quantity: 8 } },
+        ],
+      },
+    ],
+    primaryMedia: {
+      url: "https://placehold.co/200x200",
+      alt: "Pochette de fleurs de CBD Orange Bud",
+      type: "image",
+      isPrimary: true,
+    },
     reviewSummary: { averageRating: 4.6, totalReviews: 25 },
-    stock: { quantity: 30 },
   },
   {
     id: "5",
     name: "E-liquide CBD 300 mg",
     description: "E-liquide au CBD pour cigarette électronique, saveur mentholée.",
     price: 24.99,
+    stock: {
+      quantity: 50,
+    },
     primaryMedia: {
       url: "https://placehold.co/200x200",
       alt: "Flacon d'e-liquide CBD 300 mg",
@@ -166,7 +228,6 @@ export const PRODUCTS: Product[] = [
       ],
     },
     reviewSummary: { averageRating: 4.3, totalReviews: 60 },
-    stock: { quantity: 35 },
   },
   {
     id: "6",
