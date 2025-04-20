@@ -5,6 +5,8 @@ import ProductCard from "@/src/blocks/products/ProductCard";
 import React from "react";
 import { PRODUCTS } from "@/products.exemple";
 import { Separator } from "@/src/components/ui/separator";
+import ProductWithOptionsCard from "@/src/blocks/products/ProductWithOptionsCard";
+import { CBD_FLOWERS } from "@/productsFleursCBD.exemple";
 
 const PageProduits = () => {
   return (
@@ -16,9 +18,10 @@ const PageProduits = () => {
       <div className="flex-1">
         <h2 className="text-xl font-bold">Tous les Produits</h2>
         <List layout="grid" gap="md" cols="4" className="mt-8">
-          {PRODUCTS.map((product) => (
+          {CBD_FLOWERS.map((product) => (
             <ListItem key={product.id}>
-              <ProductCard product={product} />
+              {/* <ProductCard product={product} /> */}
+              <ProductWithOptionsCard product={product} />
             </ListItem>
           ))}
         </List>
