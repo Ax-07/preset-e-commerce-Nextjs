@@ -1,20 +1,35 @@
 export interface Product extends Partial<Entity> {   
     name: string;                               // nom du produit
     description: string;                        // description détaillée du produit
-    price: number;                              // prix du produit
+    price?: number;                              // prix du produit
     category?: ProductCategory;                 // catégorie du produit
+    options?: Option[];                          // options disponibles pour le produit (ex: taille, couleur, etc.)
 
     media?: Media[];                             // tableau de médias associés au produit (images, vidéos, etc.)
     primaryMedia?: Partial<Media>;              // image principale du produit pour la carte d'affichage
 
     isWishlisted?: boolean;                     // indique si le produit est dans la liste de souhaits de l'utilisateur
 
-    stock?: Stock;                              // informations sur le stock du produit
+    stock: Stock;                              // informations sur le stock du produit
     promotion?: Promotion;                      // informations sur la promotion du produit
     attributes?: ProductAttribute;              // attributs du produit (ex: taille, couleur, etc.)
     marketingStatus?: MarketingStatus;          // informations sur le statut marketing du produit
     reviewSummary?: Partial<ReviewSummary>;     // résumé des avis et notes sur le produit
     reviews?: Review[];                         // tableau d'avis sur le produit
+}
+
+export interface Option {
+    id: string;                               // identifiant unique de l'option
+    name: string;                             // nom de l'option (ex: "Taille", "Couleur")
+    values: OptionValue[];                    // valeurs possibles pour cette option
+}
+
+export interface OptionValue {
+    id: string;                               // identifiant unique de la valeur d'option
+    name: string;                             // nom de la valeur d'option (ex: "S", "M", "L" pour taille)
+    priceModifier?: number;                   // modification du prix associée à cette valeur (optionnel)
+    stock?: Stock;                            // informations sur le stock pour cette valeur d'option (optionnel)
+    isDefault?: boolean;                      // indique si c'est la valeur par défaut (optionnel)
 }
 
 export interface Media extends Partial<Entity> {
