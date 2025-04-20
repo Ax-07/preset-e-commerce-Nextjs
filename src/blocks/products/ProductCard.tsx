@@ -1,5 +1,6 @@
 "use client";
 
+import AddToCartButton from "@/src/components/ui/AddToCartButton";
 import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/src/components/ui/card";
@@ -12,7 +13,6 @@ import { Product } from "@/src/types/product";
 import { getCategoryPath } from "@/src/utils/getCategoryPath";
 import { slugify } from "@/src/utils/slug";
 import { ShoppingCart, TrendingUp } from "lucide-react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -69,7 +69,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </CardContent>
         <CardFooter className="flex flex-col items-start">
           <div className="flex items-center gap-4">
-            <p className={`text-lg font-bold ${product.promotion?.isOnSale && "line-through font-light text-muted-foreground text-sm"}`}>€{product.price.toFixed(2)}</p>
+            <p className={`text-lg font-bold ${product.promotion?.isOnSale && "line-through font-light text-muted-foreground text-sm"}`}>€{product.price?.toFixed(2)}</p>
             {product.promotion?.isOnSale && product.promotion.salePrice && (
               <>
                 <p className="text-lg font-bold">€{product.promotion.salePrice.toFixed(2)}</p>
@@ -77,19 +77,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               </>
             )}
           </div>
-          <StockIndicator stock={product.stock!.quantity} />
+          <StockIndicator stock={product.stock.quantity} />
           <div className="flex gap-4 mt-4">
             <Input type="number" min={1} defaultValue={1} className="w-16" onClick={(e)=> e.stopPropagation()}/>
-            <Button 
-              variant="outline" 
-              onClick={e => {
-                e.stopPropagation();
-                e.preventDefault();
-                onAddToCart();
-              }}>
-              <ShoppingCart className="size-4" />
-              Add to Cart
-            </Button>
+            <AddToCartButton product={product} onAddToCart={onAddToCart}/>
           </div>
         </CardFooter>
       </Card>
