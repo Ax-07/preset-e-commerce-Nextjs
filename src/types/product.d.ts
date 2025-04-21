@@ -27,6 +27,10 @@ export interface Option {
 export interface OptionValue {
     id: string;                               // identifiant unique de la valeur d'option
     name: string;                             // nom de la valeur d'option (ex: "S", "M", "L" pour taille)
+    quantity?: number;                        // quantité pour les produits en vrac (optionnel)
+    unit?: string;                            // unité de mesure (ex: "g", "kg", "ml") (optionnel)
+    unitPrice?: number;                      // prix unitaire associé à cette valeur (optionnel)
+    totalPrice?: number;                      // prix total associé à cette valeur (optionnel)
     priceModifier?: number;                   // modification du prix associée à cette valeur (optionnel)
     stock?: Stock;                            // informations sur le stock pour cette valeur d'option (optionnel)
     isDefault?: boolean;                      // indique si c'est la valeur par défaut (optionnel)
