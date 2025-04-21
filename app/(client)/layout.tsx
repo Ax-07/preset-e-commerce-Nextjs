@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/src/components/themes/theme-provider";
 import Header from "@/src/blocks/Header/Header";
 import { globalconfig } from "@/config/global.config";
 import { NavBreadcrumb } from "@/src/blocks/NavBreadcrumb/NavBreadcrumb";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,7 +34,7 @@ export default function RootLayout({
 
   return (
     <html lang="en"
-     suppressHydrationWarning={true}
+    suppressHydrationWarning={true}
      >
       <body
         className={cn(
@@ -42,6 +43,7 @@ export default function RootLayout({
           "antialiased"
         )}
         suppressHydrationWarning={true}
+
       >
         <ThemeProvider
           attribute="class"
@@ -51,8 +53,12 @@ export default function RootLayout({
         >
         <SessionProvider>
             <Header />
-            <main className="container mx-auto py-17">
+            <main className="relative container mx-auto py-17">
               <NavBreadcrumb />
+              <Toaster position="top-center" toastOptions={{ duration: 2000, style: {
+                background: "#333",
+                color: "#fff",
+            }, }} />
               {children}
             </main>
           </SessionProvider>
