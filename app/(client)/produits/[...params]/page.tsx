@@ -1,15 +1,22 @@
 /* app/produits/[...params]/page.tsx */
 import React from "react";
 import { PRODUCTS } from "@/products.exemple";
-import CategoryPage from "../../../../src/pages/CategoryPage";
-import ProductPage  from "../../../../src/pages/ProductPage";
+import CategoryPage from "./CategoryPage";
+import ProductPage  from "./ProductPage";
+import { CBD_FLOWERS } from "@/productsFleursCBD.exemple";
 
 export default function CatchAllPage({ params }: { params: { params: string[] } }) {
   const segments = params.params; // required catch-all: always at least one segment
   const last = segments[segments.length - 1];
 
+  console.log({
+    segments: segments,
+    last: last,
+    params: params.params
+  })
+
   // Si le dernier segment correspond à un ID de produit existant, afficher la page produit
-  if (PRODUCTS.find((p) => p.id === last)) {
+  if (CBD_FLOWERS.find((p) => p.id === last)) {
     return (
       <ProductPage productId={last} categorySegments={segments.slice(0, -1)} />
     );
