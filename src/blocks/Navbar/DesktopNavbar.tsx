@@ -27,6 +27,7 @@ export const DesktopHeader: React.FC<DeskTopHeaderProps>  = ({className}) => {
     <header
       className={cn("hidden items-center justify-between lg:flex", className)}
       aria-label="Main Navigation"
+
     >
       <div className="flex items-center gap-6">
         <Link href="/" className="flex items-center gap-2" aria-label="Home">
