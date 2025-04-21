@@ -12,7 +12,7 @@ export interface StockIndicatorProps extends React.HTMLAttributes<HTMLDivElement
   textClassName?: string;
 }
 
-export const StockIndicator: React.FC<StockIndicatorProps> = ({
+export const StockIndicator: React.FC<StockIndicatorProps> = React.memo(({
   stock,
   sizeClass = "w-2 h-2",
   textClassName = "text-sm",
@@ -46,4 +46,4 @@ export const StockIndicator: React.FC<StockIndicatorProps> = ({
       <span className={textClassName}>{label}</span>
     </div>
   );
-};
+});
