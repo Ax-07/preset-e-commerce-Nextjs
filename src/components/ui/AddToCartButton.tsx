@@ -3,12 +3,16 @@ import { Button } from './button';
 import { ShoppingCart } from 'lucide-react';
 import { useCartStore } from '@/src/stores/cart.store';
 import { Product } from '@/src/types/product';
+import toast from 'react-hot-toast';
 
 interface AddToCartProps {
+    type?: "button" | "submit" | "reset";
     product: Product;
     onAddToCart: () => void;
+    className?: string;
+    disabled?: boolean;
 }
-const AddToCartButton: React.FC<AddToCartProps> = ({product, onAddToCart}) => {
+const AddToCartButton: React.FC<AddToCartProps> = ({type, product, onAddToCart, className, disabled=false}) => {
     if (!product) return null; // Si le produit n'est pas défini, on ne rend rien
     const addItem = useCartStore(state => state.addItem);
     
@@ -17,14 +21,19 @@ const AddToCartButton: React.FC<AddToCartProps> = ({product, onAddToCart}) => {
         e.preventDefault(); // Empêche le comportement par défaut du bouton
         console.log("Ajout au panier pour le produit :", product.id);
         addItem({ id: product.id!, name: "Produit", price: product.price!, quantity: 1 });
+        toast.success("Produit ajouté au panier !"); // Affiche un message de succès
+        onAddToCart(); // Appelle la fonction de rappel pour gérer l'ajout au panier
     };
 
     return (
         <Button 
-        variant="outline" 
-        onClick={handleAddToCart}>
+        type={type}
+        onClick={handleAddToCart}
+        className={`${className}`}
+        disabled={disabled}
+        >
         <ShoppingCart className="size-4" />
-        Add to Cart
+        Ajouter au panier
       </Button>
     );
 };
