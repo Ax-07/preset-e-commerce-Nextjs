@@ -75,7 +75,7 @@ const Rating = forwardRef<HTMLDivElement, RatingProps>(
       <>
         <div
           ref={ref}
-          className={cn(ratingContainerVariants({ size }), className)}
+          className={cn(ratingContainerVariants({ size }),"w-fit", className)}
           role="radiogroup"
           tabIndex={readOnly ? -1 : 0}
           onKeyDown={handleKeyDown}
