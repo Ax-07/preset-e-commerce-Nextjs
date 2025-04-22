@@ -48,33 +48,33 @@ export const { handlers, auth } = NextAuth({
   session: {
     strategy: "jwt",
   },
-  events: {
-    createUser: async (message) => {
-      const userId = message.user.id;
-      const email = message.user.email;
-      if (!email) return;
-      if(!userId) return;
-      const stripeCustommer = await stripe.customers.create({
-        email: email,
-        metadata: {
-          userId: userId,
-        },
-      });
-      await prisma.user.update({
-        where: {
-          id: userId,
-        },
-        data: {
-          stripeCustomerId: stripeCustommer.id,
-        },
-      });
-    }
-  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        
+        // Création Stripe si nécessaire
+        const existingUser = await prisma.user.findUnique({
+          where: { id: user.id },
+        });
+        
+        if (!existingUser?.stripeCustomerId && existingUser?.email) {
+          const userId = existingUser?.id;
+          const email = existingUser?.email
+          const stripeCustomer = await stripe.customers.create({
+          email,
+          metadata: { userId },
+        });
+  
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { stripeCustomerId: stripeCustomer.id },
+          });
+  
+          console.log("Stripe customer created in JWT callback");
+        }
       }
+  
       return token;
     },
     async session({ session, token }) {
