@@ -9,6 +9,8 @@ import Header from "@/src/blocks/Header/Header";
 import { globalconfig } from "@/config/global.config";
 import { NavBreadcrumb } from "@/src/blocks/NavBreadcrumb/NavBreadcrumb";
 import { Toaster } from "react-hot-toast";
+import Footer from "@/src/blocks/Footer";
+import CookieBanner from "@/src/blocks/CookieBanner";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -61,8 +63,10 @@ export default function RootLayout({
             }, }} />
               {children}
             </main>
+            <Footer />
           </SessionProvider>
         </ThemeProvider>
+        {/* <CookieBanner /> */}
       </body>
     </html>
   );
