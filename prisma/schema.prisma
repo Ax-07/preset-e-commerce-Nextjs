@@ -1,5 +1,13 @@
+//******** AUTO GENERATED FILE, DO NOT EDIT.  *********
+
+// @/prisma/base.prisma
+// This file contains the Prisma schema for the database.
+// To import models, use the following command:
+// npx prisma-merge --input prisma/models --output prisma/schema.prisma
+
 generator client {
   provider = "prisma-client-js"
+  output = "./generated"
 }
 
 datasource db {
@@ -7,7 +15,37 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-/// ✅ **Tables pour NextAuth**
+
+// @/prisma/models/auth.prisma
+// This file contains the Address model and types and its relations.
+enum AddressType {
+  SHIPPING
+  BILLING
+}
+model Address {
+  id              String          @id @default(cuid())
+  userId          String?         @map("user_id")
+  guestCustomerId String?         @map("guest_customer_id")
+
+  type            AddressType     // "SHIPPING" or "BILLING"
+
+  street          String
+  city            String
+  state           String
+  zip             String
+  country         String
+
+  user            User?           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  guestCustomer   GuestCustomer?  @relation(fields: [guestCustomerId], references: [id], onDelete: Cascade)
+
+  createdAt       DateTime        @default(now()) @map("created_at")
+  updatedAt       DateTime        @updatedAt @map("updated_at")
+
+  @@map("addresses")
+}
+
+// @/prisma/models/auth.prisma
+// This file contains the models for authentication using NextAuth.
 model Account {
   id                 String  @id @default(cuid())
   userId             String  @map("user_id")
@@ -28,16 +66,6 @@ model Account {
   @@map("accounts")
 }
 
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique @map("session_token")
-  userId       String   @map("user_id")
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
-  @@map("sessions")
-}
-
 model User { 
   id               String    @id @default(cuid())
   name             String?
@@ -49,12 +77,27 @@ model User {
 
   accounts         Account[]
   sessions         Session[]
+  addresses        Address[]
+  orders           Order[]
+  cart             Cart[]
+  reviews          Review[]
 
   resetToken       String?
   resetTokenExpiry DateTime?
 
   @@map("users")
 }
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@map("sessions")
+}
+
 
 model VerificationToken {
   identifier String
@@ -63,4 +106,159 @@ model VerificationToken {
  
   @@unique([identifier, token])
   @@map("verification_tokens")
+}
+
+// @/prisma/models/cart.prisma
+// This file contains the Cart and CartItem models and their relations.
+// The Cart model represents a shopping cart, and the CartItem model represents items in the cart.
+
+model Cart {
+  id              String          @id @default(cuid())
+  userId          String?         @map("user_id")
+  guestCustomerId String?         @map("guest_customer_id")
+
+  user            User?           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  guestCustomer   GuestCustomer?  @relation(fields: [guestCustomerId], references: [id], onDelete: Cascade)
+
+  cartItems       CartItem[]
+
+  createdAt       DateTime        @default(now()) @map("created_at")
+  updatedAt       DateTime        @updatedAt @map("updated_at")
+
+  @@map("carts")
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  cartId    String   @map("cart_id")
+  productId String   @map("product_id")
+  quantity  Int      @default(1)
+  price     Float
+
+  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("cart_items")
+}
+
+// @/prisma/models/guest.prisma
+// This file contains the GuestCustomer model and its relations.
+// The GuestCustomer model represents a customer who is not registered but can still place orders and have a cart.
+
+model GuestCustomer  {
+  id        String   @id @default(cuid())
+  email     String
+  name      String?
+  address   Address[]
+
+  orders    Order[]
+  cart      Cart[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("guest-customers")
+}
+
+// @/prisma/models/order.prisma
+// This file contains the Order and OrderItem models and their relations.
+// The Order model represents a customer's order, and the OrderItem model represents items in the order.
+
+model Order {
+  id                  String          @id @default(cuid())
+  userId              String          @map("user_id")
+  guestCustomerId     String?         @map("guest_customer_id")
+  totalAmount         Float
+  paymentStatus       PaymentStatus   @default(UNPAID)
+  paymentMethod       PaymentMethod?  @default(CREDIT_CARD)
+
+  user                User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  guestCustomer       GuestCustomer?  @relation(fields: [guestCustomerId], references: [id], onDelete: Cascade)
+  orderItems          OrderItem[]
+
+
+  createdAt           DateTime        @default(now()) @map("created_at")
+  updatedAt           DateTime        @updatedAt @map("updated_at")
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id            String      @id @default(cuid())
+  orderId       String      @map("order_id")
+  productId     String      @map("product_id")
+  quantity      Int
+  price         Float
+
+  order         Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product       Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  discountId    String?     @map("discount_id")
+  discount      Discount?   @relation("DiscountOrderItems", fields: [discountId], references: [id], onDelete: Cascade)
+
+  @@map("order_items")
+}
+
+enum PaymentStatus {
+  PAID
+  UNPAID
+  REFUNDED
+}
+
+enum PaymentMethod {
+  CREDIT_CARD
+  PAYPAL
+  STRIPE
+}
+
+model Discount {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  discount    Float
+  isActive    Boolean  @default(true)
+  expiresAt   DateTime?
+  orderItems  OrderItem[]  @relation("DiscountOrderItems")
+
+}
+
+// @/prisma/models/product.prisma
+// This file contains the Product and Category models and their relations.
+// The Product model represents a product in the store, and the Category model represents a category of products.
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  price       Float
+  image       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  reviews     Review[]
+  orderItems  OrderItem[]
+  cartItems   CartItem[]
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String
+  products  Product[]
+}
+
+model Review {
+    id        String   @id @default(cuid())
+    productId String   @map("product_id")
+    userId    String?  @map("user_id")
+    rating    Int      @default(0)
+    comment   String?
+    
+    product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+    user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+    
+    @@map("reviews")
 }
