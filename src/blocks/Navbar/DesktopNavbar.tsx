@@ -85,12 +85,12 @@ export const DesktopHeader: React.FC<DeskTopHeaderProps>  = ({className}) => {
         <AccountMenu />
       </div>
       <div className="-translate-1/2 w-150 absolute left-1/2 top-1/2">
-              <Input placeholder="Rechercher..." className="w-full" />
-              <Search
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground"
-                size={20}
-              />
-            </div>
+        <Input placeholder="Rechercher..." className="w-full" />
+        <Search
+          className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground"
+          size={20}
+        />
+      </div>
     </header>
   );
 };
