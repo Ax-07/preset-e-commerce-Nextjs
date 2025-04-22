@@ -8,11 +8,13 @@ import toast from 'react-hot-toast';
 interface AddToCartProps {
     type?: "button" | "submit" | "reset";
     product: Product;
+    quantity?: number;
+    price?: number;
     onAddToCart: () => void;
     className?: string;
     disabled?: boolean;
 }
-const AddToCartButton: React.FC<AddToCartProps> = ({type, product, onAddToCart, className, disabled=false}) => {
+const AddToCartButton: React.FC<AddToCartProps> = ({type, product,quantity, onAddToCart, className, disabled=false}) => {
     if (!product) return null; // Si le produit n'est pas défini, on ne rend rien
     const addItem = useCartStore(state => state.addItem);
     
@@ -20,7 +22,7 @@ const AddToCartButton: React.FC<AddToCartProps> = ({type, product, onAddToCart, 
         e.stopPropagation(); // Empêche la propagation de l'événement de clic
         e.preventDefault(); // Empêche le comportement par défaut du bouton
         console.log("Ajout au panier pour le produit :", product.id);
-        addItem({ id: product.id!, name: "Produit", price: product.price!, quantity: 1 });
+        addItem({ id: product.id!, name: product.name, unitPrice: product.price!, quantity: quantity || 1 }); // Ajoute le produit au panier avec la quantité spécifiée
         toast.success("Produit ajouté au panier !"); // Affiche un message de succès
         onAddToCart(); // Appelle la fonction de rappel pour gérer l'ajout au panier
     };
