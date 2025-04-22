@@ -272,7 +272,9 @@ export default function ProductPage({ productId, categorySegments }: ProductPage
 
                         <AddToCartButton
                           type="submit"
-                          product={{ ...product, price: totalPrice }}
+                          product={{ ...product, price: unitPrice }}
+                          quantity={selectedOption?.quantity! * watchQuantity}
+                          price= {totalPrice}
                           className="flex-1"
                           disabled={!selectedOption || watchQuantity < 1}
                           onAddToCart={() => {}}
