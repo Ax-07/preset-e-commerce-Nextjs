@@ -45,6 +45,7 @@ model User {
   password         String?
   emailVerified    DateTime? @map("email_verified")
   image            String?
+  stripeCustomerId String? @map("stripe_customer_id")
 
   accounts         Account[]
   sessions         Session[]
