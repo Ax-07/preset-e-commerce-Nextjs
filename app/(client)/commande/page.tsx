@@ -19,7 +19,7 @@ return (
             <li key={item.id} className="flex justify-between">
               <span>{item.name} x {item.quantity}</span>
               <div>
-                <span className="mr-2">{(item.price * item.quantity).toFixed(2)}€</span>
+                <span className="mr-2">{(item.unitPrice * item.quantity).toFixed(2)}€</span>
                 <button
                   className="text-red-500 hover:underline"
                   onClick={() => removeItem(item.id)}
