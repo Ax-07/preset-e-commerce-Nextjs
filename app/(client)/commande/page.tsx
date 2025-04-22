@@ -1,3 +1,4 @@
+"use client";
 import { useCartStore } from '@/src/stores/cart.store';
 import React from 'react';
 
