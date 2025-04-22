@@ -67,10 +67,10 @@ const Footer = () => {
             <p>© 2024 Copyright. All rights reserved.</p>
             <ul className="flex gap-4">
               <li className="underline hover:text-primary">
-                <a href="#"> Terms and Conditions</a>
+                <a href="/politique-confidentialite" className="hover:underline">Politique de confidentialité</a>
               </li>
               <li className="underline hover:text-primary">
-                <a href="#"> Privacy Policy</a>
+              <a href="/mentions-legales" className="hover:underline">Mentions légales</a>
               </li>
             </ul>
           </div>
