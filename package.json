@@ -1,5 +1,5 @@
 {
-  "name": "prest-ecommerce-nextjs",
+  "name": "preset-ecommerce-nextjs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma-generate": "prisma generate",
+    "prisma:merge": "prisma-merge -b prisma/models/base.prisma -s prisma/models/*.prisma -e prisma/schema.prisma -o prisma/schema.prisma",
+    "prisma:generate": "npm run prisma:merge && prisma generate",
+    "prisma:dev": "npm run prisma:merge && prisma migrate dev",
+    "prisma:studio": "npm run prisma:merge && prisma studio",
     "vercel-build": "prisma generate && prisma migrate deploy && next build"
   },
   "dependencies": {
@@ -63,6 +66,7 @@
     "globals": "^15.14.0",
     "postcss": "^8.5.1",
     "prisma": "^6.6.0",
+    "prisma-merge": "^0.2.0",
     "tailwindcss": "^4.1.4",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.22.0"
