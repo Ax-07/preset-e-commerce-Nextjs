@@ -40,9 +40,9 @@ const Basket = () => {
                 {items.map(item => (
                 <DropdownMenuItem>
                   <li key={item.id} className="flex justify-between">
-                    <span>{item.name} x {item.quantity}</span>
+                    <span>{item.name} x {item.quantity}g</span>
                     <div>
-                      <span className="mr-2">{(item.price * item.quantity).toFixed(2)}€</span>
+                      <span className="mr-2">{(item.unitPrice * item.quantity).toFixed(2)}€</span>
                       <button
                         className="text-red-500 hover:underline"
                         onClick={(e) => {
@@ -60,6 +60,15 @@ const Basket = () => {
               </ul>
             )}
         </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem className="flex justify-between">
+          <span>Total</span>
+          <span>{totalPrice.toFixed(2)}€</span>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <a href="/panier">Voir mon Panier</a>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
