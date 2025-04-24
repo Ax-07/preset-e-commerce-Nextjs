@@ -161,7 +161,7 @@ const responsiveItems = React.useMemo<Record<number, number>>(() => {
     1280:  Math.floor(Math.min(max / 1.125, max)),  // xl
     1536:  max                                      // 2xl
   }
-}, [itemsToShow]); console.log({responsiveItems: responsiveItems})
+}, [itemsToShow]);
 
 // on trie les breakpoints
 const breakpoints = React.useMemo(
