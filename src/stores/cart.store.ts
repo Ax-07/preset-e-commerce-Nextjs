@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 // Définition des types pour les articles du panier
-interface CartItem {
+export interface CartItem {
     id: string; // Identifiant unique de l'article
     name: string; // Nom de l'article
     unitPrice: number; // Prix unitaire de l'article
@@ -13,6 +13,7 @@ interface CartItem {
   interface CartState {
     items: CartItem[];
     addItem: (item: CartItem) => void;
+    updateQuantity: (id: string, quantity: number) => void;
     removeItem: (id: string) => void;
     clearCart: () => void;
     totalItems: () => number;
@@ -38,6 +39,12 @@ export const useCartStore = create<CartState>()(
             set({ items: [...get().items, item] });
           }
         },
+        updateQuantity: (id: string, quantity: number) =>
+          set((state) => ({
+            items: state.items.map((item) =>
+              item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item
+            ),
+          })),
         removeItem: (id) => set({ items: get().items.filter(i => i.id !== id) }),
         clearCart: () => set({ items: [] }),
         totalItems: () => get().items.reduce((sum, i) => sum + i.quantity, 0),
