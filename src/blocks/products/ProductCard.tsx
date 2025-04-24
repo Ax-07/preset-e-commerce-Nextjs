@@ -24,10 +24,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const router = useRouter();
   if (!product) return null; // Si le produit n'est pas défini, on ne rend rien
     // 1. On construit le tableau de segments pour la catégorie
-    const categoryPath = product.category ? getCategoryPath(product.category) : []; console.log("categoryPath", categoryPath)
+    const categoryPath = product.category ? getCategoryPath(product.category) : []; 
     // 2. On assemble l'URL
     //    /produits/[...category]/[productId]
-    const href = "/produits/" + categoryPath.join("/") + "/" + slugify(product.id || ""); console.log("href", href)
+    const href = "/produits/" + categoryPath.join("/") + "/" + slugify(product.id || "");
 
   const onAddToCart = () => {
     console.log("Ajout au panier pour le produit :", product.id);
