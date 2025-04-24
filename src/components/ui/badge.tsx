@@ -16,6 +16,7 @@ const badgeVariants = cva(
           "border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80",
         outline: "text-foreground",
         rounded: "flex items-center justify-center border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80 rounded-full aspect-square",
+        roundedOutline: "flex items-center justify-center border-primary text-primary shadow rounded-full aspect-square border"
 
       },
       size: {
