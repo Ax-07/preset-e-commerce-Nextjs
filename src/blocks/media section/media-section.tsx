@@ -18,7 +18,7 @@ export interface MediaSectionProps
 
 const MediaSection = React.forwardRef<HTMLDivElement, MediaSectionProps>(
   ({ reverse = false, className, children, ...props }, ref) => {
-    const childArray = React.Children.toArray(children); console.log("childArray", childArray)
+    const childArray = React.Children.toArray(children); 
 
     return (
       <div
