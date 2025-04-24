@@ -109,7 +109,6 @@ export default function ProductPage({ productId, categorySegments }: ProductPage
       },
       totalPrice,
     };
-    console.log("Ajout au panier :", cartItem);
     // TODO: logique d'ajout au panier
   };
 
@@ -249,7 +248,8 @@ export default function ProductPage({ productId, categorySegments }: ProductPage
                                     min={1}
                                     value={field.value || 1}
                                     onChange={(e) => field.onChange(Number(e.target.value))}
-                                    className="w-16 text-center"
+                                    className="w-16 text-center [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                                    style={{ MozAppearance: "textfield" }} // firefox
                                   />
                                   <Button id="btn-add"
                                     type="button"
