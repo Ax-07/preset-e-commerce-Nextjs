@@ -21,7 +21,6 @@ export async function sendMail({
   // Initialiser le transporter si pas déjà fait
   try {
     const transporter = createTransporter();
-    console.log(transporter);
 
     const mailOptions = {
       from: process.env.EMAIL_USER, // Valeur par défaut
