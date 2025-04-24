@@ -9,6 +9,5 @@ export function getCategoryPath(cat: ProductCategory): string[] {
     // (si vous en avez plusieurs, il faudra adapter la logique).
     return path.concat(getCategoryPath(cat.subcategories[0]));
   }
-  console.log("path", path)
   return path;
 }
