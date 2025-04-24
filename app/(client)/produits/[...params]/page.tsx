@@ -9,12 +9,6 @@ export default function CatchAllPage({ params }: { params: { params: string[] } 
   const segments = params.params; // required catch-all: always at least one segment
   const last = segments[segments.length - 1];
 
-  console.log({
-    segments: segments,
-    last: last,
-    params: params.params
-  })
-
   // Si le dernier segment correspond à un ID de produit existant, afficher la page produit
   if (CBD_FLOWERS.find((p) => p.id === last)) {
     return (
