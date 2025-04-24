@@ -27,15 +27,22 @@ export async function POST(req: NextRequest) {
     }));
 
     const session = await stripe.checkout.sessions.create({
+      ui_mode: "embedded",
+      payment_method_types: ["card"],
       line_items,
       mode: "payment",
-      success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/?canceled=true`,
+      
+      // success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`, // success_url` n'est pas supporter avec `ui_mode: embedded
+      return_url: `${origin}/return?session_id={CHECKOUT_SESSION_ID}`, // `return_url` est utilisé pour le mode intégré l'url de retour est 'localhost:3000/return?session_id={CHECKOUT_SESSION_ID}' 
+      // cancel_url: `${origin}/?canceled=true`, // `cancel_url` n'est pas supporter avec `ui_mode: embedded
+      // automatic_tax: { enabled: true }, // Activer la gestion automatique des taxes
     });
 
-    return NextResponse.json({ url: session.url }); // ✅ pas redirect côté API
+    // return NextResponse.json({ url: session.url }); // ✅ pas redirect côté API
+    return NextResponse.json({ clientSecret: session.client_secret }); //
   } catch (err: any) {
     console.error("Erreur Stripe:", err);
     return NextResponse.json({ error: err.message }, { status: err.statusCode || 500 });
   }
 }
+
