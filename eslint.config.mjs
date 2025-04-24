@@ -9,6 +9,7 @@ import tailwind from "eslint-plugin-tailwindcss";
 export default [
   { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
   { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
+  { ignores: ["prisma/generated"] },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
