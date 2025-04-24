@@ -7,7 +7,7 @@ import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "../database/prisma.client";
 import { authenticateUser } from "./auth.services";
-import { stripe } from "../stripe/stripe";
+import { stripe } from "../stripe/stripe.config";
 
 export const { handlers, auth } = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
