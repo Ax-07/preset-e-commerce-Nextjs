@@ -5,6 +5,7 @@ import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Separator } from "@/src/components/ui/separator";
+import {CheckoutComponent} from "@/src/lib/stripe/components/checkoutComponent";
 import { handleCheckout } from "@/src/lib/stripe/stripe.checkout";
 import { useCartStore } from "@/src/stores/cart.store";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -147,10 +148,11 @@ const CommandePage: React.FC = () => {
               </Button>
             </AccordionHeader>
             <AccordionContent className="w-full p-1">
-              <PaymentMethodForm 
+              {/* <PaymentMethodForm 
                 onValidated={(data => console.log(data))}
                 onNext={() => setActiveAccordion("confirmation")}
-              />
+              /> */}
+              <CheckoutComponent />
             </AccordionContent>
           </AccordionItem>
         </Accordion>
@@ -158,14 +160,15 @@ const CommandePage: React.FC = () => {
           <Button
             className="w-full"
             disabled={!userInfo || !addressInfo || !deliveryInfo}
-            onClick={async () => {
-              const items = useCartStore.getState().items;
-              if (items.length === 0) {
-                alert("Votre panier est vide");
-                return;
-              }
-              await handleCheckout(items);
-            }}
+            // onClick={async () => {
+            //   const items = useCartStore.getState().items;
+            //   if (items.length === 0) {
+            //     alert("Votre panier est vide");
+            //     return;
+            //   }
+            //   await handleCheckout(items);
+            // }}
+            onClick={() => console.log("payer")}
           >
             Payer
           </Button>
@@ -183,7 +186,7 @@ const CommandePage: React.FC = () => {
           : <div className="flex flex-col gap-2">
             <ul className="space-y-2 mb-4 text-base min-h-20">
               {useCartStore.getState().items.map((item) => (
-              <li className="inline-flex items-center justify-between w-full">
+              <li key={item.id} className="inline-flex items-center justify-between w-full">
                 <p className="">{item.name} x {item.quantity}g</p>
                 <div className="inline-flex items-center">
                   <p className="mr-2">{(item.unitPrice * item.quantity).toFixed(2)}€</p>
