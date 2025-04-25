@@ -11,7 +11,7 @@ import { stripe } from "../stripe/stripe.config";
 
 export const { handlers, auth } = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma as any),
   providers: [
     Credentials({
       credentials: {
