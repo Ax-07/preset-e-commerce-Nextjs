@@ -1,22 +1,31 @@
+// app/panier/commande/page.tsx
+
 "use client";
+
 import Colissimo from "@/src/components/customs/Colissimo";
 import { Accordion, AccordionContent, AccordionHeader, AccordionItem } from "@/src/components/ui/accordion";
 import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Separator } from "@/src/components/ui/separator";
-import {CheckoutComponent} from "@/src/lib/stripe/components/checkoutComponent";
-import { handleCheckout } from "@/src/lib/stripe/stripe.checkout";
 import { useCartStore } from "@/src/stores/cart.store";
+import { useCheckoutStore } from "@/src/stores/checkout.store";
+import { DeliveryMethod, useDeliveryStore } from "@/src/stores/delivery.store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PenBoxIcon } from "lucide-react";
-import { register } from "module";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaSpinner } from "react-icons/fa6";
 import { z } from "zod";
 
-interface ValidatedForm {
+export interface ValidatedForm {
+  /**
+   * Fonction de validation du formulaire
+   * 
+   * @param data 
+   * @returns void
+   */
   onValidated: (data: any) => void;
   onNext?: () => void;
 }
@@ -32,7 +41,8 @@ const AddressFormSchema = z.object({
   deliveryAddress: z.object({
     firstName: z.string().min(1, { message: "Le prénom est requis" }),
     lastName: z.string().min(1, { message: "Le nom est requis" }),
-    address: z.string().min(1, { message: "L'adresse est requise" }),
+    address1: z.string().min(1, { message: "L'adresse est requise" }),
+    address2: z.string().optional(),
     postalCode: z.string().min(1, { message: "Le code postal est requis" }),
     city: z.string().min(1, { message: "La ville est requise" }),
     country: z.string().min(1, { message: "Le pays est requis" }),
@@ -43,7 +53,8 @@ const AddressFormSchema = z.object({
   billingAddress: z.object({
     firstName: z.string().min(1, { message: "Le prénom est requis" }),
     lastName: z.string().min(1, { message: "Le nom est requis" }),
-    address: z.string().min(1, { message: "L'adresse est requise" }),
+    address1: z.string().min(1, { message: "L'adresse est requise" }),
+    address2: z.string().optional(),
     postalCode: z.string().min(1, { message: "Le code postal est requis" }),
     city: z.string().min(1, { message: "La ville est requise" }),
     country: z.string().min(1, { message: "Le pays est requis" }),
@@ -52,7 +63,8 @@ const AddressFormSchema = z.object({
 });
 type AddressFormType = z.infer<typeof AddressFormSchema>;
 const DeliveryInfoFormSchema = z.object({
-  deliveryMethod: z.string().min(1, { message: "La méthode de livraison est requise" }),
+  deliveryMethod: z.nativeEnum(DeliveryMethod),
+  deliveryPrice: z.number().min(0, { message: "Le prix de livraison est requis" }),
 })
 type DeliveryInfoFormType = z.infer<typeof DeliveryInfoFormSchema>;
 const PaymentMetod = z.object({
@@ -61,6 +73,7 @@ const PaymentMetod = z.object({
 type PaymentMethodType = z.infer<typeof PaymentMetod>;
 
 const CommandePage: React.FC = () => {
+  const router = useRouter();
   const [hasMounted, setHasMounted] = useState(false);
   
   const [activeAccordion, setActiveAccordion] = useState("user-info");
@@ -71,6 +84,14 @@ const CommandePage: React.FC = () => {
   useEffect(() => {
     setHasMounted(true);
   }, []);
+
+  useEffect(() => {
+    console.log({
+      "user info": userInfo,
+      "addressInfo": addressInfo,
+      "deliveryInfo": deliveryInfo
+    })
+  },[userInfo, addressInfo, deliveryInfo])
     
   return (
     <section>
@@ -142,17 +163,15 @@ const CommandePage: React.FC = () => {
                 <Badge variant={activeAccordion === "payment-method" ? "rounded" : "roundedOutline"} className="mr-2">4</Badge>
                 Méthode de paiement
               </div>
-              <Button variant={"ghost"} className="ml-auto" onClick={() => setActiveAccordion("payment-method")}>
-                <PenBoxIcon className="size-4" />
-                Modifier
-              </Button>
+              
             </AccordionHeader>
             <AccordionContent className="w-full p-1">
-              {/* <PaymentMethodForm 
+              <PaymentMethodForm 
                 onValidated={(data => console.log(data))}
                 onNext={() => setActiveAccordion("confirmation")}
-              /> */}
-              <CheckoutComponent />
+              />
+              {/* <CheckoutComponent /> */}
+              {/* <PaymentComponent/> */}
             </AccordionContent>
           </AccordionItem>
         </Accordion>
@@ -168,7 +187,7 @@ const CommandePage: React.FC = () => {
             //   }
             //   await handleCheckout(items);
             // }}
-            onClick={() => console.log("payer")}
+            onClick={() => router.push("/panier/commande/paiement")}
           >
             Payer
           </Button>
@@ -189,15 +208,28 @@ const CommandePage: React.FC = () => {
               <li key={item.id} className="inline-flex items-center justify-between w-full">
                 <p className="">{item.name} x {item.quantity}g</p>
                 <div className="inline-flex items-center">
-                  <p className="mr-2">{(item.unitPrice * item.quantity).toFixed(2)}€</p>
+                  <p className="mr-2">{(item.unitPrice * item.quantity).toFixed(2)} €</p>
                 </div>
               </li>
               ))}
             </ul>
             <Separator className="my-2" />
             <div className="flex items-center justify-between p-2">
-              <p>Total<span className="text-xs text-muted-foreground ml-2">(TVA incluse)</span></p>
+              <p>Sous total<span className="text-xs text-muted-foreground ml-2">(TVA incluse)</span></p>
               <span>{useCartStore.getState().totalPrice().toFixed(2)} €</span>
+            </div>
+            <div className="flex items-center justify-between p-2">
+              <p>Frais de port</p>
+              <span>{useDeliveryStore.getState().delivery?.price.toFixed(2)} €</span>
+            </div>
+            <div className="flex items-center justify-between p-2">
+              <p>Remise</p>
+              {/* <span>{useCartStore.getState().discountPrice.toFixed(2)} €</span> */}
+            </div>
+            <Separator className="my-2" />
+            <div className="flex items-center justify-between p-2">
+              <p>Total<span className="text-xs text-muted-foreground ml-2">(TVA incluse)</span></p>
+              <span>{useCheckoutStore.getState().total().toFixed(2)} €</span>
             </div>
           </div>
           }
@@ -250,7 +282,8 @@ const AddressForm = ({ onValidated, onNext }: ValidatedForm) => {
       deliveryAddress: {
         firstName: "",
         lastName: "",
-        address: "",
+        address1: "",
+        address2: "",
         postalCode: "",
         city: "",
         country: "",
@@ -260,7 +293,8 @@ const AddressForm = ({ onValidated, onNext }: ValidatedForm) => {
        billingAddress: {
         firstName: "",
         lastName: "",
-        address: "",
+        address1: "",
+        address2: "",
         postalCode: "",
         city: "",
         country: "",
@@ -287,8 +321,12 @@ const AddressForm = ({ onValidated, onNext }: ValidatedForm) => {
           </div>
         </div>
         <div className="flex-1">
-          <Input placeholder="Adresse" {...form.register("deliveryAddress.address")} />
-          {form.formState.errors.deliveryAddress?.address && <span className="text-red-500">{form.formState.errors.deliveryAddress?.address.message}</span>}
+          <Input placeholder="Adresse" {...form.register("deliveryAddress.address1")} />
+          {form.formState.errors.deliveryAddress?.address1 && <span className="text-red-500">{form.formState.errors.deliveryAddress?.address1.message}</span>}
+        </div>
+        <div className="flex-1">
+          <Input placeholder="Complément d'adresse" {...form.register("deliveryAddress.address2")} />
+          {form.formState.errors.deliveryAddress?.address2 && <span className="text-red-500">{form.formState.errors.deliveryAddress?.address2.message}</span>}
         </div>
         <div className="flex gap-4">
           <div className="flex-1">
@@ -334,8 +372,12 @@ const AddressForm = ({ onValidated, onNext }: ValidatedForm) => {
           </div>
         </div>
         <div className="flex-1">
-          <Input placeholder="Adresse" {...form.register("billingAddress.address")} />
-          {form.formState.errors.billingAddress?.address && <span className="text-red-500">{form.formState.errors.billingAddress?.address.message}</span>}
+          <Input placeholder="Adresse" {...form.register("billingAddress.address1")} />
+          {form.formState.errors.billingAddress?.address1 && <span className="text-red-500">{form.formState.errors.billingAddress?.address1.message}</span>}
+        </div>
+        <div className="flex-1">
+          <Input placeholder="Complément d'adresse" {...form.register("billingAddress.address2")} />
+          {form.formState.errors.billingAddress?.address2 && <span className="text-red-500">{form.formState.errors.billingAddress?.address2.message}</span>}
         </div>
         <div className="flex gap-4">
           <div className="flex-1">
@@ -363,11 +405,18 @@ const DeliveryInfoForm = ({ onValidated, onNext }: ValidatedForm) => {
   const form = useForm({
     resolver: zodResolver(DeliveryInfoFormSchema),
     defaultValues: {
-      deliveryMethod: "",
+      deliveryMethod: "colissimo-home-without-signature" as DeliveryMethod,
+      deliveryPrice: 0,
     },
   });
   const onSubmit = (data: DeliveryInfoFormType) => {
     onValidated(data);
+        useDeliveryStore.getState().setDelivery({
+          method: data.deliveryMethod,
+          price: data.deliveryPrice,
+        });
+        console.log("Méthode de livraison sélectionnée :", data.deliveryMethod);
+        console.log("Prix de livraison :", data.deliveryPrice);
     onNext && onNext(); // ⬅️ active le suivant
   };
   return (
@@ -382,15 +431,20 @@ const PaymentMethodForm = ({ onValidated, onNext }: ValidatedForm) => {
   const form = useForm({
     resolver: zodResolver(PaymentMetod),
     defaultValues: {
-      paymentMethod: "",
+      paymentMethod: "carte bancaire",
     },
   });
   const onSubmit = (data: PaymentMethodType) => {
     onValidated(data);
+    onNext && onNext(); // ⬅️ active le suivant
   };
   return (
-    <form className="space-y-4" onSubmit={form.handleSubmit((data) => console.log(data))}>
-      <div className="inline-flex items-center gap-2"><Input type="radio" defaultChecked placeholder="Méthode de livraison" value={"carte bancaire"} {...form.register("paymentMethod")} size={12} className="size-3"/>Carte bancaire</div>
+    <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+      <div className="inline-flex items-center gap-2 w-full">
+        <Input id="payment-method" type="radio" defaultChecked value={"carte bancaire"} {...form.register("paymentMethod")} size={12} className="size-3"/>
+        <label htmlFor="payment-mrthod">Carte bancaire</label>
+      </div>
+      <Button type="submit">Valider</Button>
     </form>
   );
 }
