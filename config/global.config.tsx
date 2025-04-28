@@ -14,9 +14,13 @@ interface GlobalConfig {
 }
 
 export const globalconfig: GlobalConfig = {
-    siteName: "MyShop.com",
-    description: "Description de la boutique",
+    // Nom du site
+    siteName: "E-Shop CBD.com",
+    // Description du site
+    description: "E-Shop CBD - Votre boutique en ligne de produits CBD",
+    // Favicon du site
     favicon: "/images/favicon.png",
+    // Logo du site
     logo: {
         src: "/images/logo.png",
         alt: "", // Placeholder to avoid circular reference
@@ -25,3 +29,4 @@ export const globalconfig: GlobalConfig = {
 
 // Update the alt property after initialization to avoid circular reference
 globalconfig.logo.alt = `logo de ${globalconfig.siteName}`;
+
