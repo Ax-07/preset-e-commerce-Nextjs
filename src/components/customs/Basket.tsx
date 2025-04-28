@@ -72,11 +72,8 @@ const Basket = () => {
         </div>
         <DropdownMenuSeparator />
         <div className="flex flex-col gap-2 px-2 py-1.5">
-          <Button variant="outline" className="w-full" asChild>
-            <a href="/panier">Voir mon Panier</a>
-          </Button>
           <Button className="w-full" asChild>
-            <a href="/commande">Commander</a>
+            <a href="/panier">Voir mon Panier</a>
           </Button>
         </div>
       </DropdownMenuContent>
