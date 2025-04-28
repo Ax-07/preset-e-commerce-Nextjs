@@ -26,6 +26,7 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: globalconfig.siteName,
   description: globalconfig.description,
+  icons: "/favicon-eshop-cbd.svg",
 };
 
 export default function RootLayout({
