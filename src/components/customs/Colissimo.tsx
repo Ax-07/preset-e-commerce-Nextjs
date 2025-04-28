@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Input } from "../ui/input";
-import Image from "next/image";
 import ColissimoIcon from "/src/assets/colissimo-icon/Colissimo_VERTICAL - VF 1.svg";
 import Chronopost from "@/src/assets/colissimo-icon/Chronopost_VERTICAL - VF 2.svg";
 import { Label } from "../ui/label";
@@ -8,11 +7,11 @@ import { Label } from "../ui/label";
 const colissimoOptions = [
   {
     icon: "colissimo",
-    value: "colissimo",
+    value: "colissimo-relais",
     label: "Colissimo - 48/72H Relais Pickup",
     description:
       "Livraison en relais Pickup et consignes Pickup Station en 48/72H (expédition le jour même pour toute commande passée avant 14H30 du lundi au vendredi).",
-    price: 5.5,
+    price: 5.50,
     free: "À partir de 50€ d'achats",
   },
   {
@@ -21,7 +20,7 @@ const colissimoOptions = [
     label: "Colissimo - 48/72H",
     description:
       "Livraison à domicile en 48h/72h (expédition le jour même pour toute commande passée avant 14h30 du lundi au vendredi).",
-    price: 7.9,
+    price: 7.90,
     free: "À partir de 70€ d'achats",
   },
   {
@@ -30,16 +29,16 @@ const colissimoOptions = [
     label: "Colissimo contre signature - 48/72H",
     description:
       "Livraison à domicile contre signature en 48h/72h (expédition le jour même pour toute commande passée avant 14h30 du lundi au vendredi).",
-    price: 7.9,
+    price: 7.90,
     free: "À partir de 70€ d'achats",
   },
   {
     icon: "chronopost",
-    value: "chronopost",
+    value: "chronopost-relais",
     label: "Chronopost - 24H Relais Pickup",
     description:
       "Livraison en relais Pickup et consignes Pickup Station en 24H (expédition le jour même pour toute commande passée avant 14H30 du lundi au vendredi).",
-    price: 5.5,
+    price: 7.90,
     free: "À partir de 70€ d'achats",
   },
   {
@@ -48,7 +47,7 @@ const colissimoOptions = [
     label: "Chronopost - 24H",
     description:
       "Livraison à domicile en 24h (expédition le jour même pour toute commande passée avant 14h30 du lundi au vendredi).",
-    price: 9.9,
+    price: 9.90,
     free: "À partir de 120€ d'achats",
   },
 ];
@@ -70,6 +69,12 @@ const ColissimoOption: React.FC<{
   option: (typeof colissimoOptions)[0];
   form: any;
 }> = ({ option, form }) => {
+  const isChecked = form.watch("deliveryMethod") === option.value;
+  useEffect(() => {
+    if (isChecked) {
+      form.setValue("deliveryPrice", option.price);
+    }
+  }, [isChecked, option.price, form]);
   return (
     <div className="flex items-center gap-2 border rounded-xl p-2 shadow-sm hover:shadow-md transition-all duration-200 ease-in-out">
       <Input
