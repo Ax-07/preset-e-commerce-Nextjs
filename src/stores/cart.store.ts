@@ -7,7 +7,9 @@ export interface CartItem {
     name: string; // Nom de l'article
     unitPrice: number; // Prix unitaire de l'article
     quantity: number;
-  }
+}
+
+
   
   // État et actions du store
   interface CartState {
