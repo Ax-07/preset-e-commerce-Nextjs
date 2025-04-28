@@ -105,7 +105,7 @@ const CommandePage: React.FC = () => {
         <span>{totalPrice?.toFixed(2)}€</span>
       </div>
       <Button className="w-full">
-        <a href="/commande">Commander maintenant</a>
+        <a href="/panier/commande">Commander maintenant</a>
       </Button>
     </div>
   )}
