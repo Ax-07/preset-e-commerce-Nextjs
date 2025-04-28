@@ -23,13 +23,14 @@ export const LoginWithGithubButton = () => {
       className="mt-2 w-full"
       onClick={loginWithGithub}
     >
-      <Image
+      {/* <Image
         src={GithubIcon}
         alt="Github logo"
         width={20}
         height={20}
         className="mr-2"
-      />
+      /> */}
+      <GithubIcon className="mr-2 !size-5" />
       Login with GitHub
     </Button>
   );
@@ -46,7 +47,7 @@ export const LoginWithGoogleButton = () => {
       className="mt-2 w-full"
       onClick={loginWithGoogle}
     >
-      <FcGoogle className="mr-2 size-5" />
+      <FcGoogle className="mr-2 !size-5"/>
       Login with Google
     </Button>
   );
