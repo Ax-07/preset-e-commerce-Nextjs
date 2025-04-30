@@ -65,7 +65,7 @@ const ProductWithOptionsCard: React.FC<ProductCardProps> = ({ product }) => {
           <div className="flex items-center gap-2">
             <p>A partir de</p>
             <p className={`text-lg font-bold ${product.promotion?.isOnSale && "line-through font-light text-muted-foreground text-sm"}`}>€{product.price?.toFixed(2)}</p>
-            <p>/ g</p>
+            <p>/ {product.unit}</p>
             {product.promotion?.isOnSale && product.promotion.salePrice && (
               <>
                 <p className="text-lg font-bold">€{product.promotion.salePrice.toFixed(2)}</p>
