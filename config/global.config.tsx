@@ -17,7 +17,7 @@ export const globalconfig: GlobalConfig = {
     // Nom du site
     siteName: "E-Shop CBD.com",
     // Description du site
-    description: "E-Shop CBD - Votre boutique en ligne de produits CBD",
+    description: "E-Shop CBD - Votre boutique en ligne de produits CBD.",
     // Favicon du site
     favicon: "/images/favicon.png",
     // Logo du site
