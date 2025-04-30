@@ -33,6 +33,7 @@ function PaymentForm() {
   const [message, setMessage] = useState<String>("");
   const [isLoading, setIsLoading] = useState(false);
   const [cardholderName, setCardholderName] = useState<string>(""); // <- Ajouté
+  const [ checkCGV, setCheckCGV ] = useState<boolean>(false);
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -55,7 +56,7 @@ function PaymentForm() {
           },
         },
         // Make sure to c://hange this to your payment completion page
-        return_url: `${window.location.origin}/panier/commande/paiement/confirmation`,
+        return_url: `${window.location.origin}/panier/livraison/paiement/confirmation`,
       },
     });
 
@@ -101,6 +102,21 @@ function PaymentForm() {
           }
         }}
       />
+      <div className="flex items-center mt-4 mb-2">
+        <input
+          type="checkbox"
+          id="checkCGV"
+          checked={checkCGV}
+          onChange={(e) => setCheckCGV(e.target.checked)}
+          className="mr-2"
+        />
+        <label htmlFor="checkCGV" className="text-sm text-muted-foreground">
+          J'accepte les{" "}
+          <a href="/conditions-generales-de-vente" className="text-primary underline">
+            conditions générales de vente
+          </a>
+        </label>
+      </div>
       <Button
         disabled={isLoading || !stripe || !elements}
         id="submit"
