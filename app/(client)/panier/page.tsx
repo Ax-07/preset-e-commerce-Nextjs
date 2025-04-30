@@ -1,4 +1,6 @@
+// app/%28client%29/panier/page.tsx
 "use client";
+import { ProgressStepper } from "@/src/components/customs/ProgressStepper";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Separator } from "@/src/components/ui/separator";
@@ -31,6 +33,7 @@ const CommandePage: React.FC = () => {
   }
   return (
 <div className="flex flex-col max-w-2xl w-full mx-auto p-6 rounded-2xl shadow-lg space-y-6">
+  <ProgressStepper currentStep={0} />
   <h2 className="text-2xl font-bold text-center">🛒 Votre Panier</h2>
 
   {items.length === 0 ? (
@@ -105,7 +108,7 @@ const CommandePage: React.FC = () => {
         <span>{totalPrice?.toFixed(2)}€</span>
       </div>
       <Button className="w-full">
-        <a href="/panier/commande">Commander maintenant</a>
+        <a href="/panier/livraison">Commander maintenant</a>
       </Button>
     </div>
   )}
