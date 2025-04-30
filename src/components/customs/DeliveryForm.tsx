@@ -4,7 +4,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { ValidatedForm } from "@/app/(client)/panier/commande/page";
+import { ValidatedForm } from "@/app/(client)/panier/livraison/page";
 import Colissimo from "./Colissimo";
 import { Button } from "../ui/button";
 import { DeliveryMethod, useDeliveryStore } from "@/src/stores/delivery.store";
