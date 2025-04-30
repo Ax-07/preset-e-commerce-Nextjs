@@ -7,8 +7,6 @@ export default function Home() {
   return (
     <div>
       <HeroCarousel />
-      <Hero />
-      <Feature />
     </div>
   );
 }
