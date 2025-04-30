@@ -4,12 +4,12 @@ import React from "react";
 import Link from "next/link";
 import { List, ListItem } from "@/src/blocks/products/List";
 import { slugify } from "@/src/utils/slug";
-import { CBD_FLOWERS } from "@/productsFleursCBD.exemple";
 import ProductWithOptionsCard from "@/src/blocks/products/ProductWithOptionsCard";
 import { useSort } from "@/src/blocks/sortSelector/useSort";
 import { productSortOptions } from "@/src/blocks/sortSelector/sortOptions";
 import SortSelector from "@/src/blocks/sortSelector/SortSelector";
 import { useCategoryData } from "@/src/hooks/useCategoryData";
+import { PRODUCTS } from "@/mock";
 
 interface Category {
   name: string;
@@ -24,9 +24,9 @@ interface CategoryPageProps {
 export default function CategoryPage({ categorySegments }: CategoryPageProps) {
   const segments = categorySegments;
   const pathPrefix = "/produits" + (segments.length ? "/" + segments.join("/") : "");
-
+  
   const { subcategories, currentCategory, filteredProducts } = useCategoryData(
-    CBD_FLOWERS,
+    PRODUCTS,
     categorySegments
   );
 
