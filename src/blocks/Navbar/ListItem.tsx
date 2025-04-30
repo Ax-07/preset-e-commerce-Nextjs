@@ -4,7 +4,7 @@ import { NavigationMenuLink } from "@radix-ui/react-navigation-menu";
 
 interface ListItemProps extends React.ComponentPropsWithoutRef<"a"> {
   title: string;
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   children: React.ReactNode;
 }
 
