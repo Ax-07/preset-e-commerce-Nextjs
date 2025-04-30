@@ -24,7 +24,9 @@ import { Button } from "@/src/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/src/components/ui/form";
 
 // Données produits
-import { CBD_FLOWERS } from "@/productsFleursCBD.exemple";
+import { CBD_FLOWERS } from "@/mock/productsFleursCBD.exemple";
+import { CBD_RESIN } from "@/mock/productsResineCBD.exemple";
+import { PRODUCTS } from "@/mock";
 
 interface ProductPageProps {
   productId: string;
@@ -40,7 +42,7 @@ const FormSchema = z.object({
 type FormValues = z.infer<typeof FormSchema>;
 
 export default function ProductPage({ productId, categorySegments }: ProductPageProps) {
-  const product = CBD_FLOWERS.find((p) => p.id === productId);
+  const product = PRODUCTS.find((p) => p.id === productId); console.log(productId, product);
   if (!product) {
     return <p>Produit non trouvé.</p>;
   }
