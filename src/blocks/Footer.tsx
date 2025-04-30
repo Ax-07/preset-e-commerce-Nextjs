@@ -2,6 +2,8 @@
 import React from "react";
 import { navigationConfig } from "@/config/navigation.config";
 import { FaXTwitter, FaLinkedin, FaInstagram } from "react-icons/fa6";
+import { globalconfig } from "@/config/global.config";
+import Link from "next/link";
 
 const Footer = () => {
   const sections = navigationConfig.navGroups.map((item) => ({
@@ -18,20 +20,22 @@ const Footer = () => {
     { name: "LinkedIn", href: "https://linkedin.com", icon: <FaLinkedin /> },
   ];
 
+  const currentYear = new Date().getFullYear();
+
   return (
         <footer className="container px-16 py-32">
           <div className="grid grid-cols-2 gap-8 lg:grid-cols-5">
             <div className="col-span-2 mb-8 lg:mb-0 ">
               <div className="flex flex-col items-center justify-center gap-2 lg:items-start lg:justify-start">
-                <a href="https://shadcnblocks.com" className="flex items-center gap-2">
-                  <img
-                    src="https://shadcnblocks.com/images/block/block-1.svg"
-                    alt="blocks for shadcn/ui"
-                    className="h-10 bg-white"
-                  />
-                <p className="text-xl font-semibold">Shadcnblocks.com</p>
-                </a>
-              <p className="mt-4 font-bold">Components made easy.</p>
+              <Link href="/" className="flex items-center gap-2" aria-label="Home">
+                <img
+                  src={globalconfig.logo.src}
+                  className="w-8 bg-white"
+                  alt={globalconfig.logo.alt}
+                />
+                <span className="text-lg font-semibold">{globalconfig.siteName}</span>
+              </Link>
+              <p className="mt-4 font-bold">{globalconfig.description}</p>
               </div>
             </div>
             {sections.map((section, sectionIdx) => (
@@ -64,13 +68,16 @@ const Footer = () => {
             </div>
           </div>
           <div className="mt-24 flex flex-col items-center justify-between gap-4 border-t pt-8 text-sm font-medium text-muted-foreground md:flex-row md:items-center lg:items-start">
-            <p>© 2024 Copyright. All rights reserved.</p>
+            <p>© {currentYear} Copyright. All rights reserved.</p>
             <ul className="flex gap-4">
               <li className="underline hover:text-primary">
                 <a href="/politique-confidentialite" className="hover:underline">Politique de confidentialité</a>
               </li>
               <li className="underline hover:text-primary">
               <a href="/mentions-legales" className="hover:underline">Mentions légales</a>
+              </li>
+              <li className="underline hover:text-primary">
+              <a href="/conditions-general-de-vente" className="hover:underline">Conditions générales de vente</a>
               </li>
             </ul>
           </div>
