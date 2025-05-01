@@ -4,13 +4,11 @@ import { SortOption } from "./useSort";
 export const productSortOptions: SortOption<Product>[] = [
   {
     label: "Alphabetique (A → Z)",
-    compareFn: (a, b) =>
-      a.name.localeCompare(b.name, "fr", { sensitivity: "base" }),
+    compareFn: (a, b) => a.name.localeCompare(b.name, "fr", { sensitivity: "base" }),
   },
   {
     label: "Alphabetique (A ← Z)",
-    compareFn: (a, b) =>
-      b.name.localeCompare(a.name, "fr", { sensitivity: "base" }),
+    compareFn: (a, b) => b.name.localeCompare(a.name, "fr", { sensitivity: "base" }),
   },
   {
     label: "Prix croissant",
