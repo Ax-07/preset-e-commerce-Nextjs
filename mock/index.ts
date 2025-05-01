@@ -2,15 +2,16 @@ import { CBD_OILS } from "@/mock/productsHuileCBD.exemple";
 import { CBD_FLOWERS } from "@/mock/productsFleursCBD.exemple";
 import { CBD_RESIN } from "@/mock/productsResineCBD.exemple";
 import { ELIQUIDS } from "./productsEliquideCBD.exemple";
+import { Product, ProductCategory } from "@/src/types/product";
 
 export const PRODUCTS = [
   ...CBD_OILS,
   ...CBD_FLOWERS,
   ...CBD_RESIN,
   ...ELIQUIDS,
-]; // Utilisation de 'as const' pour inférer les types littéraux
+];
 
-const getCategories = (products: any[]) => {
+const getCategories = (products: Product[]) => {
   const categories = new Set<string>();
   products.reduce((acc, product) => {
     if (product.category) {
@@ -21,14 +22,8 @@ const getCategories = (products: any[]) => {
   return Array.from(categories).map((category) => ({ name: category }));
 };
 
-type CatWithSubs = {
-    name: string;
-    description: string;
-    subcategories: { name: string; description: string }[];
-  };
-
-const getCategoriesWithSubcategories = (products: any[]): CatWithSubs[] => {
-  const map = new Map<string, CatWithSubs>();
+const getCategoriesWithSubcategories = (products: Product[]) => {
+  const map = new Map<string, ProductCategory>();
 
   products.forEach((product) => {
     const category = product.category;
@@ -36,12 +31,14 @@ const getCategoriesWithSubcategories = (products: any[]): CatWithSubs[] => {
 
     const catName = category.name;
     const catDesc = category.description ?? "Aucune description fournie.";
+    const media = category.media
 
     // Crée la catégorie si elle n'existe pas encore dans la map
     if (!map.has(catName)) {
       map.set(catName, {
         name: catName,
         description: catDesc,
+        media: media,
         subcategories: [],
       });
     }
@@ -56,20 +53,22 @@ const getCategoriesWithSubcategories = (products: any[]): CatWithSubs[] => {
 
     if (subs.length === 0) {
       // Cas où aucun subcategory n'est fourni
-      if (!entry.subcategories.some((s) => s.name === "Autres")) {
-        entry.subcategories.push({
+      if (!entry?.subcategories?.some((s) => s.name === "Autres")) {
+        entry.subcategories?.push({
           name: "Autres",
           description: "",
         });
       }
     } else {
-      subs.forEach((sub: any) => {
+      subs.forEach((sub: ProductCategory) => {
         const subName = sub.name;
         const subDesc = sub.description ?? "";
-        if (!entry.subcategories.some((s) => s.name === subName)) {
-          entry.subcategories.push({
+        const subMedia = sub.media;
+        if (!entry.subcategories?.some((s) => s.name === subName)) {
+          entry.subcategories?.push({
             name: subName,
             description: subDesc,
+            media: subMedia,
           });
         }
       });
@@ -80,8 +79,18 @@ const getCategoriesWithSubcategories = (products: any[]): CatWithSubs[] => {
   return Array.from(map.values());
 };
 
-export const PRODUCTS_CATEGORIES = getCategories(PRODUCTS);
-export const PRODUCTS_CATEGORIES_WITH_SUBCATEGORIES = getCategoriesWithSubcategories(
-  PRODUCTS
-);
-console.log(PRODUCTS_CATEGORIES);
+const getCategoryPaths = (cat: ProductCategory): string[] => {
+  console.log('cat', cat); // Affiche la catégorie courante
+  const path = [cat.name];
+  if (cat.subcategories && cat.subcategories.length) {
+    // Pour simplifier, on prend la première sous‑catégorie imbriquée
+    // (si vous en avez plusieurs, il faudra adapter la logique).
+    return path.concat(getCategoryPaths(cat.subcategories[0]));
+  }
+  return path;
+}
+const path = getCategoryPaths(PRODUCTS[0].category!);
+console.log('path', path); // Affiche le chemin de la catégorie
+
+export const PRODUCTS_CATEGORIES = getCategories(PRODUCTS); console.log('PRODUCTS_CATEGORIES', PRODUCTS_CATEGORIES); // Affiche les catégories uniques
+export const PRODUCTS_CATEGORIES_WITH_SUBCATEGORIES = getCategoriesWithSubcategories(PRODUCTS); console.log('PRODUCTS_CATEGORIES_WITH_SUBCATEGORIES', PRODUCTS_CATEGORIES_WITH_SUBCATEGORIES); // Affiche les catégories avec sous-catégories
