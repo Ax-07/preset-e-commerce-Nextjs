@@ -20,7 +20,7 @@ export interface Product extends Partial<Entity> {
   unit?: Unit;
   category?: ProductCategory;
   options?: Option[];
-  media?: Media[];
+  media?: Partial<Media> | Partial<Media>[];
   primaryMedia?: Partial<Media>;
   isWishlisted?: boolean;
   stock: Stock;
@@ -100,7 +100,7 @@ export interface Media extends Partial<Entity> {
 export interface ProductCategory extends Partial<Entity> {
   name: string;
   description?: string;
-  media?: Media[];
+  media?: Partial<Media>;
   parentCategoryId?: number | null;
   subcategories?: ProductCategory[];
 }
