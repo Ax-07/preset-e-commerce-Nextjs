@@ -10,12 +10,14 @@ export type SortOption<T> = {
 /**
  * Hook générique pour trier un tableau
  */
-export function useSort<T>(
-  items: T[],
-  options: SortOption<T>[],
-  defaultLabel: string
-) {
-  const [sortBy, setSortBy] = useState<string>(defaultLabel);
+export function useSort<T>({
+  items,
+  options,
+}: {
+  items: T[];
+  options: SortOption<T>[];
+}) {
+  const [sortBy, setSortBy] = useState<string>(options[0].label);
 
   const sortedItems = useMemo(() => {
     const opt = options.find(o => o.label === sortBy);
