@@ -1,5 +1,13 @@
 import { Product } from "../src/types/product";
 
+const categoryMediaUrl = "https://images.unsplash.com/photo-1597266029701-618ac066150a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fG1hcmlqdWFuYXxlbnwwfHwwfHx8MA%3D%3D";
+const subCategoryMediaUrls = {
+  greenhouse: "https://images.unsplash.com/photo-1518469669531-9b8c528f909d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bWFyaWp1YW5hfGVufDB8fDB8fHww",
+  glasshouse: "https://images.unsplash.com/photo-1536669402438-004d53bd9af5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDZ8fG1hcmlqdWFuYXxlbnwwfHwwfHx8MA%3D%3D",
+  indoor: "https://images.unsplash.com/photo-1590682751946-a65099676151?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  bio: "https://images.unsplash.com/photo-1591754060004-f91c95f5cf05?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjN8fG1hcmlqdWFuYXxlbnwwfHwwfHx8MA%3D%3D"
+}
+
 export const CBD_FLOWERS: Product[] = [
   {
     id: "og_kush-greenhouse-2025",
@@ -12,11 +20,24 @@ export const CBD_FLOWERS: Product[] = [
     },
     category: { 
       name: "Fleurs", 
-      description: "Fleurs de CBD séchées", 
+      description: "Fleurs de CBD séchées",
+      media: {
+        url: categoryMediaUrl,
+        alt: "Pochette de fleurs de CBD AK-47",
+        type: "image",
+        isPrimary: true,
+      }, 
       subcategories: [{ 
         name: "Greenhouse", 
-        description: "Fleurs cultivées en serre" 
-      }] },
+        description: "Fleurs cultivées en serre",
+        media: {
+          url: subCategoryMediaUrls.greenhouse,
+          alt: "Photo de fleurs de CBD AK-47",
+          type: "image",
+          isPrimary: true,
+        }
+      }]
+    },
     options: [
     { id: "prixdachat", name: "Prix d'achat", values: [
       { id: "og_kush-buy-100g", name: "100 g", quantity: 100, unit: "g", unitPrice: 0.65, totalPrice: 100 * 0.65 },
@@ -50,7 +71,26 @@ export const CBD_FLOWERS: Product[] = [
     stock: {
       quantity: 450
     },
-    category: { name: "Fleurs", description: "Fleurs de CBD séchées", subcategories: [{ name: "Indoor", description: "Fleurs cultivées en intérieur" }] },
+    category: { 
+      name: "Fleurs", 
+      description: "Fleurs de CBD séchées", 
+      media: {
+        url: categoryMediaUrl,
+        alt: "Pochette de fleurs de CBD AK-47",
+        type: "image",
+        isPrimary: true,
+      },
+      subcategories: [{ 
+        name: "Indoor", 
+        description: "Fleurs cultivées en intérieur",
+        media: {
+          url: subCategoryMediaUrls.indoor,
+          alt: "Photo de fleurs de CBD AK-47",
+          type: "image",
+          isPrimary: true,
+        }
+      }] 
+    },
     options: [
       { id: "prixdachatsmallbuds", name: "Prix d'achat small buds", values: [
         { id: "AK_47-sb-buy-100g", name: "Small buds 100 g", quantity: 100, unit: "g", unitPrice: 1.1, totalPrice: 100 * 1.1 },
@@ -91,7 +131,26 @@ export const CBD_FLOWERS: Product[] = [
     stock: {
       quantity: 250
     },
-    category: { name: "Fleurs", description: "Fleurs de CBD séchées", subcategories: [{ name: "Indoor", description: "Cultivée en intérieur" }] },
+    category: { 
+      name: "Fleurs", 
+      description: "Fleurs de CBD séchées",
+      media: {
+        url: categoryMediaUrl,
+        alt: "Pochette de fleurs de CBD AK-47",
+        type: "image",
+        isPrimary: true,
+      },
+      subcategories: [{ 
+        name: "Indoor", 
+        description: "Cultivée en intérieur",
+        media: {
+          url: subCategoryMediaUrls.indoor,
+          alt: "Photo de fleurs de CBD AK-47",
+          type: "image",
+          isPrimary: true,
+        }
+      }] 
+    },
     options: [
       { id: "prixdachat", name: "Prix d'achat", values: [
         { id: "white_widow-buy-100g", name: "100 g", quantity: 100, unit: "g", unitPrice: 1.2, totalPrice: 100 * 1.2 },
@@ -125,7 +184,26 @@ export const CBD_FLOWERS: Product[] = [
     stock: {
       quantity: 250
     },
-    category: { name: "Fleurs", description: "Fleurs de CBD séchées", subcategories: [{ name: "Glasshouse", description: "Serre vitrée premium" }] },
+    category: { 
+      name: "Fleurs", 
+      description: "Fleurs de CBD séchées",
+      media: {
+        url: categoryMediaUrl,
+        alt: "Pochette de fleurs de CBD AK-47",
+        type: "image",
+        isPrimary: true,
+      },
+      subcategories: [{ 
+        name: "Glasshouse", 
+        description: "Serre vitrée premium",
+        media: {
+          url: subCategoryMediaUrls.glasshouse,
+          alt: "Photo de fleurs de CBD AK-47",
+          type: "image",
+          isPrimary: true,
+        }
+      }] 
+    },
     options: [
       { id: "prixdachat", name: "Prix d'achat", values: [
         { id: "orange_vbio-buy-100g", name: "100 g", quantity: 100, unit: "g", unitPrice: 1.1, totalPrice: 100 * 1.1 },
@@ -157,7 +235,26 @@ export const CBD_FLOWERS: Product[] = [
     price: 2.8,
     unit: "g",
     stock: { quantity: 250 },
-    category: { name: "Fleurs", description: "Fleurs de CBD séchées", subcategories: [{ name: "Greenhouse", description: "Serre contrôlée" }] },
+    category: { 
+      name: "Fleurs", 
+      description: "Fleurs de CBD séchées",
+      media: {
+        url: categoryMediaUrl,
+        alt: "Pochette de fleurs de CBD AK-47",
+        type: "image",
+        isPrimary: true,
+      },
+      subcategories: [{ 
+        name: "Greenhouse", 
+        description: "Serre contrôlée",
+        media: {
+          url: subCategoryMediaUrls.greenhouse,
+          alt: "Photo de fleurs de CBD AK-47",
+          type: "image",
+          isPrimary: true,
+        }
+      }] 
+    },
     options: [
       { id: "prixdachat", name: "Prix d'achat", values: [
         { id: "gorilla_glue-buy-100g", name: "100 g", quantity: 100, unit: "g", unitPrice: 1.1, totalPrice: 100 * 1.1 },
@@ -189,7 +286,26 @@ export const CBD_FLOWERS: Product[] = [
     price: 2.8,
     unit: "g",
     stock: { quantity: 250 },
-    category: { name: "Fleurs", description: "Fleurs de CBD séchées", subcategories: [{ name: "Glasshouse", description: "Serre vitrée premium" }] },
+    category: { 
+      name: "Fleurs", 
+      description: "Fleurs de CBD séchées",
+      media: {
+        url: categoryMediaUrl,
+        alt: "Pochette de fleurs de CBD AK-47",
+        type: "image",
+        isPrimary: true,
+      },
+      subcategories: [{ 
+        name: "Glasshouse", 
+        description: "Serre vitrée premium",
+        media: {
+          url: subCategoryMediaUrls.glasshouse,
+          alt: "Photo de fleurs de CBD AK-47",
+          type: "image",
+          isPrimary: true,
+        }
+      }] 
+    },
     options: [
       { id: "prixdachat", name: "Prix d'achat", values: [
         { id: "bubba_kush-buy-100g", name: "100 g", quantity: 100, unit: "g", unitPrice: 1.1, totalPrice: 100 * 1.1 },
@@ -221,7 +337,26 @@ export const CBD_FLOWERS: Product[] = [
     price: 2.8,
     unit: "g",
     stock: { quantity: 250 },
-    category: { name: "Fleurs", description: "Fleurs de CBD séchées", subcategories: [{ name: "Greenhouse", description: "Serre contrôlée" }] },
+    category: { 
+      name: "Fleurs", 
+      description: "Fleurs de CBD séchées", 
+      media: {
+        url: categoryMediaUrl,
+        alt: "Pochette de fleurs de CBD AK-47",
+        type: "image",
+        isPrimary: true,
+      },
+      subcategories: [{ 
+        name: "Greenhouse", 
+        description: "Serre contrôlée",
+        media: {
+          url: subCategoryMediaUrls.greenhouse,
+          alt: "Photo de fleurs de CBD AK-47",
+          type: "image",
+          isPrimary: true,
+        }
+      }] 
+    },
     options: [
       { id: "prixdachat", name: "Prix d'achat", values: [
         { id: "blueberry_dream-buy-100g", name: "100 g", quantity: 100, unit: "g", unitPrice: 1.3, totalPrice: 100 * 1.3 },
@@ -255,7 +390,26 @@ export const CBD_FLOWERS: Product[] = [
     price: 2.8,
     unit: "g",
     stock: { quantity: 250 },
-    category: { name: "Fleurs", description: "Fleurs de CBD séchées", subcategories: [{ name: "Glasshouse", description: "Serre vitrée++" }] },
+    category: { 
+      name: "Fleurs", 
+      description: "Fleurs de CBD séchées",
+      media: {
+        url: categoryMediaUrl,
+        alt: "Pochette de fleurs de CBD AK-47",
+        type: "image",
+        isPrimary: true,
+      },
+      subcategories: [{ 
+        name: "Glasshouse", 
+        description: "Serre vitrée++",
+        media: {
+          url: subCategoryMediaUrls.glasshouse,
+          alt: "Photo de fleurs de CBD AK-47",
+          type: "image",
+          isPrimary: true,
+        }
+      }] 
+    },
     options: [
       { id: "prixdachatsmallbuds", name: "Prix d'achat small buds", values: [
         { id: "strawberry-sb-buy-500g", name: "Small buds 500 g", quantity: 500, unit: "g", unitPrice: 0.3, totalPrice: 500 * 0.3 },
@@ -292,7 +446,26 @@ export const CBD_FLOWERS: Product[] = [
     price: 2.8,
     unit: "g",
     stock: { quantity: 250 },
-    category: { name: "Fleurs", description: "Fleurs de CBD séchées", subcategories: [{ name: "Glasshouse", description: "Serre premium" }] },
+    category: { 
+      name: "Fleurs", 
+      description: "Fleurs de CBD séchées",
+      media: {
+        url: categoryMediaUrl,
+        alt: "Pochette de fleurs de CBD AK-47",
+        type: "image",
+        isPrimary: true,
+      },
+      subcategories: [{ 
+        name: "Glasshouse", 
+        description: "Serre premium",
+        media: {
+          url: subCategoryMediaUrls.glasshouse,
+          alt: "Photo de fleurs de CBD AK-47",
+          type: "image",
+          isPrimary: true,
+        }
+      }] 
+    },
     options: [
       { id: "prixdachat", name: "Prix d'achat", values: [
         { id: "orange_V2-buy-100g", name: "100 g", quantity: 100, unit: "g", unitPrice: 1.3, totalPrice: 100 * 1.3 },
@@ -324,7 +497,26 @@ export const CBD_FLOWERS: Product[] = [
     price: 2.8,
     unit: "g",
     stock: { quantity: 250 },
-    category: { name: "Fleurs", description: "Fleurs de CBD séchées", subcategories: [{ name: "Glasshouse", description: "Serre vitrée++" }] },
+    category: { 
+      name: "Fleurs", 
+      description: "Fleurs de CBD séchées",
+      media: {
+        url: categoryMediaUrl,
+        alt: "Pochette de fleurs de CBD AK-47",
+        type: "image",
+        isPrimary: true,
+      },
+      subcategories: [{ 
+        name: "Glasshouse", 
+        description: "Serre vitrée++",
+        media: {
+          url: subCategoryMediaUrls.glasshouse,
+          alt: "Photo de fleurs de CBD AK-47",
+          type: "image",
+          isPrimary: true,
+        }
+      }] 
+    },
     options: [
       { id: "prixdachat", name: "Prix d'achat", values: [
         { id: "orange_V2-buy-100g", name: "100 g", quantity: 100, unit: "g", unitPrice: 1.3, totalPrice: 100 * 1.3 },
@@ -356,7 +548,26 @@ export const CBD_FLOWERS: Product[] = [
     price: 2.8,
     unit: "g",
     stock: { quantity: 250 },
-    category: { name: "Fleurs", description: "Fleurs de CBD séchées", subcategories: [{ name: "Glasshouse", description: "Serre vitrée" }] },
+    category: { 
+      name: "Fleurs", 
+      description: "Fleurs de CBD séchées",
+      media: {
+        url: categoryMediaUrl,
+        alt: "Pochette de fleurs de CBD AK-47",
+        type: "image",
+        isPrimary: true,
+      },
+      subcategories: [{ 
+        name: "Glasshouse", 
+        description: "Serre vitrée",
+        media: {
+          url: subCategoryMediaUrls.glasshouse,
+          alt: "Photo de fleurs de CBD AK-47",
+          type: "image",
+          isPrimary: true,
+        }
+      }] 
+    },
     options: [
       { id: "prixdachatsmallbuds", name: "Prix d'achat small buds", values: [
         { id: "cannatonic-sb-buy-500g", name: "Small buds 500 g", quantity: 500, unit: "g", unitPrice: 0.3, totalPrice: 500 * 0.3 },
@@ -393,7 +604,26 @@ export const CBD_FLOWERS: Product[] = [
     price: 2.8,
     unit: "g",
     stock: { quantity: 250 },
-    category: { name: "Fleurs", description: "Fleurs de CBD séchées", subcategories: [{ name: "Glasshouse", description: "Serre vitrée" }] },
+    category: { 
+      name: "Fleurs", 
+      description: "Fleurs de CBD séchées",
+      media: {
+        url: categoryMediaUrl,
+        alt: "Pochette de fleurs de CBD AK-47",
+        type: "image",
+        isPrimary: true,
+      },
+      subcategories: [{ 
+        name: "Glasshouse", 
+        description: "Serre vitrée",
+        media: {
+          url: subCategoryMediaUrls.glasshouse,
+          alt: "Photo de fleurs de CBD AK-47",
+          type: "image",
+          isPrimary: true,
+        }
+      }] 
+    },
     options: [
       { id: "prixdachat", name: "Prix d'achat", values: [
         { id: "orange_V2-buy-100g", name: "100 g", quantity: 100, unit: "g", unitPrice: 1.3, totalPrice: 100 * 1.3 },
@@ -425,7 +655,26 @@ export const CBD_FLOWERS: Product[] = [
     price: 2.8,
     unit: "g",
     stock: { quantity: 250 },
-    category: { name: "Fleurs", description: "Fleurs de CBD séchées", subcategories: [{ name: "Glasshouse", description: "Serre vitrée" }] },
+    category: { 
+      name: "Fleurs", 
+      description: "Fleurs de CBD séchées",
+      media: {
+        url: categoryMediaUrl,
+        alt: "Pochette de fleurs de CBD AK-47",
+        type: "image",
+        isPrimary: true,
+      },
+      subcategories: [{ 
+        name: "Glasshouse", 
+        description: "Serre vitrée",
+        media: {
+          url: subCategoryMediaUrls.glasshouse,
+          alt: "Photo de fleurs de CBD AK-47",
+          type: "image",
+          isPrimary: true,
+        }
+      }] 
+    },
     options: [
       { id: "prixdachat", name: "Prix d'achat", values: [
         { id: "mandarine_Kush-buy-100g", name: "100 g", quantity: 100, unit: "g", unitPrice: 0.8, totalPrice: 100 * 0.8 },
@@ -457,7 +706,26 @@ export const CBD_FLOWERS: Product[] = [
     price: 2.8,
     unit: "g",
     stock: { quantity: 250 },
-    category: { name: "Fleurs", description: "Fleurs de CBD séchées", subcategories: [{ name: "Indoor", description: "Culture intérieure" }] },
+    category: { 
+      name: "Fleurs", 
+      description: "Fleurs de CBD séchées",
+      media: {
+        url: categoryMediaUrl,
+        alt: "Pochette de fleurs de CBD AK-47",
+        type: "image",
+        isPrimary: true,
+      },
+      subcategories: [{ 
+        name: "Indoor", 
+        description: "Culture intérieure",
+        media: {
+          url: subCategoryMediaUrls.indoor,
+          alt: "Photo de fleurs de CBD AK-47",
+          type: "image",
+          isPrimary: true,
+        }
+      }] 
+    },
     options: [
       { id: "prixdachat", name: "Prix d'achat", values: [
         { id: "lemon_haze-buy-100g", name: "100 g", quantity: 100, unit: "g", unitPrice: 1.5, totalPrice: 100 * 1.5 },
@@ -489,7 +757,26 @@ export const CBD_FLOWERS: Product[] = [
     price: 2.8,
     unit: "g",
     stock: { quantity: 250 },
-    category: { name: "Fleurs", description: "Fleurs de CBD séchées", subcategories: [{ name: "Bio", description: "Cultivée en agriculture biologique" }] },
+    category: { 
+      name: "Fleurs", 
+      description: "Fleurs de CBD séchées",
+      media: {
+        url: categoryMediaUrl,
+        alt: "Pochette de fleurs de CBD AK-47",
+        type: "image",
+        isPrimary: true,
+      },
+      subcategories: [{ 
+        name: "Bio", 
+        description: "Cultivée en agriculture biologique",
+        media: {
+          url: subCategoryMediaUrls.bio,
+          alt: "Photo de fleurs de CBD AK-47",
+          type: "image",
+          isPrimary: true,
+        }
+      }] 
+    },
     options: [
       { id: "prixdachat", name: "Prix d'achat", values: [
         { id: "orange_cbdv-buy-100g", name: "100 g", quantity: 100, unit: "g", unitPrice: 1, totalPrice: 100 * 1 },
@@ -521,7 +808,26 @@ export const CBD_FLOWERS: Product[] = [
     price: 2.8,
     unit: "g",
     stock: { quantity: 250 },
-    category: { name: "Fleurs", description: "Fleurs de CBD séchées", subcategories: [{ name: "Glasshouse", description: "Serre vitrée" }] },
+    category: { 
+      name: "Fleurs", 
+      description: "Fleurs de CBD séchées",
+      media: {
+        url: categoryMediaUrl,
+        alt: "Pochette de fleurs de CBD AK-47",
+        type: "image",
+        isPrimary: true,
+      },
+      subcategories: [{ 
+        name: "Glasshouse", 
+        description: "Serre vitrée",
+        media: {
+          url: subCategoryMediaUrls.glasshouse,
+          alt: "Photo de fleurs de CBD AK-47",
+          type: "image",
+          isPrimary: true,
+        }
+      }] 
+    },
     options: [
       { id: "prixdachat", name: "Prix d'achat", values: [
         { id: "purple_haze-buy-100g", name: "100 g", quantity: 100, unit: "g", unitPrice: 1.5, totalPrice: 100 * 1.5 },
@@ -553,7 +859,26 @@ export const CBD_FLOWERS: Product[] = [
     price: 2.8,
     unit: "g",
     stock: { quantity: 250 },
-    category: { name: "Fleurs", subcategories: [{ name: "Glasshouse", description: "Serre vitrée" }] },
+    category: { 
+      name: "Fleurs",
+      description: "Fleurs de CBD séchées",
+      media: {
+        url: categoryMediaUrl,
+        alt: "Pochette de fleurs de CBD AK-47",
+        type: "image",
+        isPrimary: true,
+      },
+      subcategories: [{ 
+        name: "Glasshouse", 
+        description: "Serre vitrée",
+        media: {
+          url: subCategoryMediaUrls.glasshouse,
+          alt: "Photo de fleurs de CBD AK-47",
+          type: "image",
+          isPrimary: true,
+        }
+      }] 
+    },
     options: [
       { id: "prixdachat", name: "Prix d'achat", values: [
         { id: "purple_haze-buy-100g", name: "100 g", quantity: 100, unit: "g", unitPrice: 1.5, totalPrice: 100 * 1.5 },
@@ -584,7 +909,26 @@ export const CBD_FLOWERS: Product[] = [
     price: 2.8,
     unit: "g",
     stock: { quantity: 250 },
-    category: { name: "Fleurs", subcategories: [{ name: "Indoor" }] },
+    category: { 
+      name: "Fleurs", 
+      description: "Fleurs de CBD séchées",
+      media: {
+        url: categoryMediaUrl,
+        alt: "Pochette de fleurs de CBD AK-47",
+        type: "image",
+        isPrimary: true,
+      },
+      subcategories: [{ 
+        name: "Indoor",
+        description: "Culture intérieure",
+        media: {
+          url: subCategoryMediaUrls.indoor,
+          alt: "Photo de fleurs de CBD AK-47",
+          type: "image",
+          isPrimary: true,
+        }
+      }] 
+    },
     options: [
       { id: "prixdachat", name: "Prix d'achat", values: [
         { id: "bubbleGum-buy-100g", name: "100 g", quantity: 100, unit: "g", unitPrice: 1.8, totalPrice: 100 * 1.8 },
