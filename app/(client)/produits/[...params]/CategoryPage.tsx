@@ -5,17 +5,9 @@ import Link from "next/link";
 import { List, ListItem } from "@/src/blocks/products/List";
 import { slugify } from "@/src/utils/slug";
 import ProductWithOptionsCard from "@/src/blocks/products/ProductWithOptionsCard";
-import { useSort } from "@/src/blocks/sortSelector/useSort";
-import { productSortOptions } from "@/src/blocks/sortSelector/sortOptions";
-import SortSelector from "@/src/blocks/sortSelector/SortSelector";
 import { useCategoryData } from "@/src/hooks/useCategoryData";
 import { PRODUCTS } from "@/mock";
-
-interface Category {
-  name: string;
-  description?: string;
-  subcategories?: Category[];
-}
+import { productSortOptions, SortSelector, useSort } from "@/src/blocks/sortSelector";
 
 interface CategoryPageProps {
   categorySegments: string[];
@@ -30,11 +22,10 @@ export default function CategoryPage({ categorySegments }: CategoryPageProps) {
     categorySegments
   );
 
-  const { sortedItems, sortBy, setSortBy } = useSort(
-    filteredProducts,
-    productSortOptions,
-    productSortOptions[0].label
-  );
+  const { sortedItems, setSortBy } = useSort({
+    items: filteredProducts,
+    options: productSortOptions,
+  });
   
   return (
     <div className="space-y-6 p-6">
@@ -77,7 +68,7 @@ export default function CategoryPage({ categorySegments }: CategoryPageProps) {
       {/* Produits */}
       <div>
         <h2 className="text-xl">Produits</h2>
-                <SortSelector options={productSortOptions.map(o => o.label)} onChange={setSortBy} />
+        <SortSelector options={productSortOptions} onChange={setSortBy} />
         {sortedItems.length === 0 && <p>Aucun produit dans cette catégorie.</p>}
         <List layout="grid" gap="md" cols="4" className="mt-8">
           {sortedItems.map(p => (
