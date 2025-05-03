@@ -12,15 +12,17 @@ import { StockIndicator } from "@/src/components/ui/StockIndicator";
 import { Product } from "@/src/types/product";
 import { getCategoryPath } from "@/src/utils/getCategoryPath";
 import { slugify } from "@/src/utils/slug";
+import { cn } from "@/src/utils/tailwind_cn";
 import { ShoppingCart, TrendingUp } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 interface ProductCardProps {
   product: Product;
+  className?: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, className }) => {
   const router = useRouter();
   if (!product) return null; // Si le produit n'est pas défini, on ne rend rien
     // 1. On construit le tableau de segments pour la catégorie
@@ -38,7 +40,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-      <Card className="flex flex-col h-full shrink-0 cursor-pointer" onClick={() => router.push(href)}>
+      <Card className={cn("flex flex-col h-full shrink-0 cursor-pointer", className)} onClick={() => router.push(href)}>
         <div className="relative">
           {product.primaryMedia?.type === 'image' && 
           <img src={product.primaryMedia.url} alt={product.primaryMedia.alt} className="h-48 w-full object-cover" />
