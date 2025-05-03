@@ -22,7 +22,7 @@ const pictures = [
 
 const HeroCarousel: React.FC = () => {
   return (
-    <section className="relative">
+    <section className="relative mb-25">
       <CategoriesMenuBanner className="my-8"/>
       <Carousel className="w-full rounded-2xl overflow-hidden" loop itemsToShow={3} autoplay={4000}>
         <CarouselContent>
