@@ -297,3 +297,49 @@ h1, h2, h3, h4, h5, h6, p {
 .gradient2 {
   @apply bg-gradient-to-b from-[#D8D8D8] from-10% via-50% via-[#404040] to-80% to-background inline-block text-transparent bg-clip-text;
 }
+
+@layer utilities {
+  @keyframes slide-in {
+    0% {
+      transform: translate(-50%, 0%);
+      opacity: 0;
+      filter: blur(0px);
+      background-color: hsl(var(--primary) / 0%);
+    }
+    75% {
+      filter: blur(20px);
+      background-color: hsl(var(--primary) / 100%);
+    }
+    100% {
+      position: relative;
+      transform: translate(0,0);
+      opacity: 1;
+      filter: blur(0px);
+      background-color: hsl(var(--primary) / 0%);
+    }
+  }
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }    
+  }
+  .slide-in {
+    animation-name: slide-in;
+    animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    animation-fill-mode: both;
+  }
+  .fade-in {
+    animation: fade-in var(--fade-duration, 1s) ease-in-out var(--fade-delay, 0s) forwards;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide-in {
+    animation: none;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
