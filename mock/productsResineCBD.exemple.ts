@@ -1,4 +1,4 @@
-import { MediaType, Product } from "@/src/types/product";
+import { Product } from "@/src/types/product";
 
 export const CBD_RESIN: Product[] = [
   {
@@ -11,6 +11,11 @@ export const CBD_RESIN: Product[] = [
     category: {
       name: "Résine",
       description: "Résine de CBD concentrée",
+      media: {
+        url: "https://images.unsplash.com/photo-1728762635815-27965508a98b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2JkJTIwaGFzaHxlbnwwfHwwfHx8Mg%3D%3D",
+        alt: "Kief Hash CBD",
+        type: "image",
+      },
       subcategories: [
         { name: "Kief", description: "Fine poudre de trichomes" }
       ]
