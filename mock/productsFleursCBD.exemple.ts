@@ -15,9 +15,7 @@ export const CBD_FLOWERS: Product[] = [
     description: `OG Kush est une variété de cannabis très populaire, avec des effets puissants et son goût distinctif. Utilisée à des fins médicinales pour traiter stress, insomnie et douleur chronique.`,
     price: 2.8,
     unit: "g",
-    stock: {
-      quantity: 250
-    },
+    stock: { quantity: 250 },
     category: { 
       name: "Fleurs", 
       description: "Fleurs de CBD séchées",
@@ -61,6 +59,14 @@ export const CBD_FLOWERS: Product[] = [
     isPrimary: true,
   },
   reviewSummary: { averageRating: 4.5, totalReviews: 30 },
+  marketingStatus: {
+    isFeatured: true,
+    isBestSeller: false,
+    isLimitedEdition: false,
+    isNew: true,
+    isPopular: false,
+    isTrending: false,
+  }
   },
   {
     id: "AK_47-indoor",
@@ -121,6 +127,14 @@ export const CBD_FLOWERS: Product[] = [
       isPrimary: true,
     },
     reviewSummary: { averageRating: 4.5, totalReviews: 30 },
+    marketingStatus: {
+      isFeatured: true,
+      isBestSeller: false,
+      isLimitedEdition: false,
+      isNew: true,
+      isPopular: false,
+      isTrending: false,
+    }
   },
   {
     id: "white_widow-2025",
