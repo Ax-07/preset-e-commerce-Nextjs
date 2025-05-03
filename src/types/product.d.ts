@@ -161,11 +161,12 @@ export interface ProductAttribute {
  * - Mise en avant sur la page d'accueil ou les filtres
  */
 export interface MarketingStatus {
-  isFeatured?: boolean;
-  isBestSeller?: boolean;
-  isTrending?: boolean;
-  isPopular?: boolean;
-  isNew?: boolean;
+  isFeatured?: boolean; // Produit en avant sur la page d'accueil
+  isBestSeller?: boolean; // Produit le plus vendu dans sa catégorie
+  isTrending?: boolean; // Produit en forte croissance de ventes
+  isPopular?: boolean; // Produit populaire dans les recherches
+  isNew?: boolean; // Produit récemment ajouté au catalogue
+  isLimitedEdition?: boolean; // Produit en édition limitée
 }
 
 /**
