@@ -11,6 +11,11 @@ export const CBD_OILS: Product[] = [
     category: {
       name: "Huiles",
       description: "Huiles de CBD",
+      media: {
+        url: "https://images.unsplash.com/photo-1605039982749-c2fe1dd2a588?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y2JkJTIwb2lsfGVufDB8fDB8fHwy",
+        alt: "Flacon d'huile CBD spectre complet",
+        type: "image"
+      },
       subcategories: [
         { name: "Spectre Complet", description: "CBD + cannabinoïdes + terpènes" }
       ]
@@ -41,7 +46,15 @@ export const CBD_OILS: Product[] = [
       type: "image",
       isPrimary: true
     },
-    reviewSummary: { averageRating: 4.6, totalReviews: 18 }
+    reviewSummary: { averageRating: 4.6, totalReviews: 18 },
+    marketingStatus: {
+      isFeatured: true,
+      isBestSeller: false,
+      isTrending: true,
+      isPopular: false,
+      isNew: true,
+      isLimitedEdition: false,
+    }
   },
   {
     id: "huile_spectre_large-10pct-2025",
@@ -83,7 +96,15 @@ export const CBD_OILS: Product[] = [
       type: "image",
       isPrimary: true
     },
-    reviewSummary: { averageRating: 4.4, totalReviews: 12 }
+    reviewSummary: { averageRating: 4.4, totalReviews: 12 },
+    marketingStatus: {
+      isFeatured: false,
+      isBestSeller: true,
+      isTrending: false,
+      isPopular: true,
+      isNew: false,
+      isLimitedEdition: false,
+    }
   },
   {
     id: "huile_isolat-99pct-2025",
@@ -125,7 +146,15 @@ export const CBD_OILS: Product[] = [
       type: "image",
       isPrimary: true
     },
-    reviewSummary: { averageRating: 4.5, totalReviews: 15 }
+    reviewSummary: { averageRating: 4.5, totalReviews: 15 },
+    marketingStatus: {
+      isFeatured: false,
+      isBestSeller: false,
+      isTrending: false,
+      isPopular: false,
+      isNew: true,
+      isLimitedEdition: true,
+    }
   },
   {
     id: "huile_menthe-10pct-2025",
@@ -167,7 +196,15 @@ export const CBD_OILS: Product[] = [
       type: "image",
       isPrimary: true
     },
-    reviewSummary: { averageRating: 4.7, totalReviews: 20 }
+    reviewSummary: { averageRating: 4.7, totalReviews: 20 },
+    marketingStatus: {
+      isFeatured: false,
+      isBestSeller: true,
+      isTrending: true,
+      isPopular: false,
+      isNew: false,
+      isLimitedEdition: false,
+    }
   },
   {
     id: "huile_nano-5pct-2025",
@@ -209,6 +246,14 @@ export const CBD_OILS: Product[] = [
       type: "image",
       isPrimary: true
     },
-    reviewSummary: { averageRating: 4.8, totalReviews: 10 }
+    reviewSummary: { averageRating: 4.8, totalReviews: 10 },
+    marketingStatus: {
+      isFeatured: true,
+      isBestSeller: false,
+      isTrending: false,
+      isPopular: true,
+      isNew: true,
+      isLimitedEdition: false,
+    }
   }
 ];
