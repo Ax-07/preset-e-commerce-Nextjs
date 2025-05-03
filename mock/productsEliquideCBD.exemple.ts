@@ -1,4 +1,4 @@
-import { MediaType, Product } from "@/src/types/product";
+import { Product } from "@/src/types/product";
 
 export const ELIQUIDS: Product[] = [
   {
@@ -11,6 +11,11 @@ export const ELIQUIDS: Product[] = [
     category: {
       name: "E-liquide",
       description: "Liquides pour cigarette électronique",
+      media: {
+        url: "https://images.unsplash.com/photo-1601568656042-65dc282bd537?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2JkJTIwZSUyMGxpcXVpZHxlbnwwfHwwfHx8Mg%3D%3D",
+        alt: "Flacon d'e-liquide fruits rouges",
+        type: "image",
+      },
       subcategories: [
         { name: "Fruits", description: "Arômes fruités" }
       ]
