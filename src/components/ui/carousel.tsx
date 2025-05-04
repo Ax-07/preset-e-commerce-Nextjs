@@ -20,7 +20,7 @@ type CarouselProps = {
   plugins?: EmblaPlugin[]; // ← tableau de plugins
   orientation?: "horizontal" | "vertical";
   loop?: boolean;
-  autoplay?: number;
+  autoplay?: number; // en millisecondes
   setApi?: (api: CarouselApi) => void;
   itemsToShow?: number;
   dots?: boolean | React.ComponentProps<typeof Button>["variant"]
@@ -67,12 +67,8 @@ function Carousel({
   children,
   ...props
 }: React.ComponentProps<"div"> & CarouselProps) {
-  // Crée le plugin autoplay si demandé
-  const autoplayPlugin = React.useMemo(
-    () =>
-      autoplay ? Autoplay({ delay: autoplay, stopOnInteraction: false }) : null,
-    [autoplay]
-  );
+  // Auto
+  const autoplayPlugin = React.useMemo(() => autoplay ? Autoplay({ delay: autoplay, stopOnInteraction: false }) : null, [autoplay]);
 
   const carouselPlugins = React.useMemo<EmblaPlugin[] | undefined>(() => {
     // on part d’un tableau vide
