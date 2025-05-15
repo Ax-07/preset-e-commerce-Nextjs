@@ -343,3 +343,12 @@ h1, h2, h3, h4, h5, h6, p {
     transform: none !important;
   }
 }
+
+@layer components {
+  [data-slot="carousel-item"] {
+    @apply opacity-30;
+  }
+  [data-slot="carousel-item"].is-snapped {
+    @apply opacity-100;
+  }
+}
