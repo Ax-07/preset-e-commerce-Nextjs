@@ -67,6 +67,7 @@ function Carousel({
   children,
   ...props
 }: React.ComponentProps<"div"> & CarouselProps) {
+  
   // Auto
 const autoplayPlugin = React.useMemo(() => {
   if (!autoplay) return null;
