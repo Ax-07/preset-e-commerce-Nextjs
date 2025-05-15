@@ -346,7 +346,7 @@ h1, h2, h3, h4, h5, h6, p {
 
 @layer components {
   [data-slot="carousel-item"] {
-    @apply opacity-30;
+    @apply transition-opacity duration-200 ease-in-out opacity-30;
   }
   [data-slot="carousel-item"].is-snapped {
     @apply opacity-100;
