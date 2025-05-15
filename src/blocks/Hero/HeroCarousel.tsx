@@ -17,17 +17,16 @@ const pictures = [
   "https://images.unsplash.com/photo-1563660322566-e9bc3441b70c?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   "https://images.unsplash.com/photo-1602168431602-9bfa3722a472?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   "https://images.unsplash.com/photo-1525575674331-70638740994c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTJ8fGNiZHxlbnwwfHwwfHx8MA%3D%3D",
-  "https://images.unsplash.com/photo-1605039828994-9ad00c0cc10c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Njd8fGNiZHxlbnwwfHwwfHx8MA%3D%3D",
 ];
 
 const HeroCarousel: React.FC = () => {
   return (
     <section className="relative mb-25">
       <CategoriesMenuBanner className="my-8"/>
-      <Carousel className="w-full rounded-2xl overflow-hidden" loop itemsToShow={3} autoplay={4000}>
+      <Carousel className="w-full rounded-2xl overflow-hidden" loop itemsToShow={3} autoplay={2000}>
         <CarouselContent>
           {pictures.map((src, index) => (
-            <CarouselItem key={index}>
+            <CarouselItem key={index} index={index} >
               <img
                 src={src}
                 alt={`Image ${index + 1}`}
