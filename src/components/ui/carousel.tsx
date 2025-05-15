@@ -6,7 +6,7 @@ import useEmblaCarousel, {
 } from "embla-carousel-react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Autoplay from "embla-carousel-autoplay";
-
+import ClassNames from "embla-carousel-class-names";
 import { Button } from "@/src/components/ui/button";
 import { cn } from "@/src/utils/tailwind_cn";
 
@@ -23,7 +23,7 @@ type CarouselProps = {
   autoplay?: number; // en millisecondes
   setApi?: (api: CarouselApi) => void;
   itemsToShow?: number;
-  dots?: boolean | React.ComponentProps<typeof Button>["variant"]
+  dots?: boolean | React.ComponentProps<typeof Button>["variant"];
 };
 
 type CarouselDotsProps = React.ComponentProps<"div"> & {
@@ -68,7 +68,20 @@ function Carousel({
   ...props
 }: React.ComponentProps<"div"> & CarouselProps) {
   // Auto
-  const autoplayPlugin = React.useMemo(() => autoplay ? Autoplay({ delay: autoplay, stopOnInteraction: false }) : null, [autoplay]);
+  const autoplayPlugin = React.useMemo(
+    () =>
+      autoplay ? Autoplay({ delay: autoplay, stopOnInteraction: false }) : null,
+    [autoplay]
+  );
+
+  const classNamesPlugin = React.useMemo(
+    () =>
+      ClassNames({
+        snapped: "is-snapped", // classe pour le slide actif
+        // inView: "is-in-view", // classe pour les slides visibles
+      }),
+    []
+  );
 
   const carouselPlugins = React.useMemo<EmblaPlugin[] | undefined>(() => {
     // on part d’un tableau vide
@@ -84,15 +97,22 @@ function Carousel({
       list.push(autoplayPlugin);
     }
 
+    // si on a un classNamesPlugin, on l’ajoute aussi
+    if (classNamesPlugin) {
+      list.push(classNamesPlugin);
+    }
+
     // si on n’a rien, on renvoie undefined
     return list.length > 0 ? list : undefined;
-  }, [plugins, autoplayPlugin]);
+  }, [plugins, autoplayPlugin, classNamesPlugin]);
 
   const [carouselRef, api] = useEmblaCarousel(
     {
       ...opts,
       axis: orientation === "horizontal" ? "x" : "y",
       loop,
+      align: "center",
+      ...opts,
     },
     carouselPlugins
   );
@@ -143,63 +163,64 @@ function Carousel({
   }, [api, onSelect]);
 
   // Si dots est un booléen, on l'utilise tel quel, sinon on le traite comme une chaîne de caractères
-  const showDots = dots !== false
-  const dotsVariant = typeof dots === "string" ? dots : ("dot" as const)
+  const showDots = dots !== false;
+  const dotsVariant = typeof dots === "string" ? dots : ("dot" as const);
 
-// si on a juste un nombre, on génère un objet de breakpoints par défaut
-const responsiveItems = React.useMemo<Record<number, number>>(() => {
-  const max = itemsToShow
-  return {
-    0: 1,                                           // base
-    640:   Math.floor(Math.min(2, max)),            // sm
-    768:   Math.floor(Math.min(3, max)),            // md
-    1024:  Math.floor(Math.min(max / 1.25, max)),   // lg
-    1280:  Math.floor(Math.min(max / 1.125, max)),  // xl
-    1536:  max                                      // 2xl
-  }
-}, [itemsToShow]);
+  // si on a juste un nombre, on génère un objet de breakpoints par défaut
+  const responsiveItems = React.useMemo<Record<number, number>>(() => {
+    const max = itemsToShow;
+    return {
+      0: 1, // base
+      640: Math.floor(Math.min(2, max)), // sm
+      768: Math.floor(Math.min(3, max)), // md
+      1024: Math.floor(Math.min(max / 1.25, max)), // lg
+      1280: Math.floor(Math.min(max / 1.125, max)), // xl
+      1536: max, // 2xl
+    };
+  }, [itemsToShow]);
 
-// on trie les breakpoints
-const breakpoints = React.useMemo(
-  () => Object.keys(responsiveItems)
-                 .map((k) => parseInt(k))
-                 .sort((a, b) => a - b),
-  [responsiveItems]
-)
+  // on trie les breakpoints
+  const breakpoints = React.useMemo(
+    () =>
+      Object.keys(responsiveItems)
+        .map((k) => parseInt(k))
+        .sort((a, b) => a - b),
+    [responsiveItems]
+  );
 
-// 3) État pour le count effectif
-const [count, setCount] = React.useState(responsiveItems[breakpoints[0]])
+  // 3) État pour le count effectif
+  const [count, setCount] = React.useState(responsiveItems[breakpoints[0]]);
 
-React.useEffect(() => {
-  const update = () => {
-    const w = window.innerWidth
-    let val = responsiveItems[breakpoints[0]]
-    for (const bp of breakpoints) {
-      if (w >= bp) val = responsiveItems[bp]
-    }
-    setCount(val)
-  }
-  update()
-  window.addEventListener("resize", update)
-  return () => window.removeEventListener("resize", update)
-}, [breakpoints, responsiveItems])
-  
-    // À chaque resize, on recalcule
-    React.useEffect(() => {
-      if (typeof itemsToShow === "object") {
-        const update = () => {
-          const w = window.innerWidth
-          let val = itemsToShow[breakpoints[0]]
-          for (const bp of breakpoints) {
-            if (w >= bp) val = itemsToShow[bp]
-          }
-          setCount(val)
-        }
-        update()
-        window.addEventListener("resize", update)
-        return () => window.removeEventListener("resize", update)
+  React.useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      let val = responsiveItems[breakpoints[0]];
+      for (const bp of breakpoints) {
+        if (w >= bp) val = responsiveItems[bp];
       }
-    }, [breakpoints, itemsToShow])
+      setCount(val);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, [breakpoints, responsiveItems]);
+
+  // À chaque resize, on recalcule
+  React.useEffect(() => {
+    if (typeof itemsToShow === "object") {
+      const update = () => {
+        const w = window.innerWidth;
+        let val = itemsToShow[breakpoints[0]];
+        for (const bp of breakpoints) {
+          if (w >= bp) val = itemsToShow[bp];
+        }
+        setCount(val);
+      };
+      update();
+      window.addEventListener("resize", update);
+      return () => window.removeEventListener("resize", update);
+    }
+  }, [breakpoints, itemsToShow]);
 
   return (
     <CarouselContext.Provider
@@ -208,7 +229,7 @@ React.useEffect(() => {
         api: api,
         opts,
         orientation:
-        orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
+          orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
         scrollPrev,
         scrollNext,
         canScrollPrev,
@@ -226,10 +247,8 @@ React.useEffect(() => {
         data-slot="carousel"
         {...props}
       >
-        <div className="relative">
-          {children}
-        </div>
-        {showDots  && <CarouselDots variant={dotsVariant}/>}
+        <div className="relative">{children}</div>
+        {showDots && <CarouselDots variant={dotsVariant} />}
       </div>
     </CarouselContext.Provider>
   );
@@ -257,7 +276,11 @@ function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
 }
 CarouselContent.displayName = "CarouselContent";
 
-function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
+function CarouselItem({
+  className,
+  index,
+  ...props
+}: React.ComponentProps<"div"> & { index?: number }) {
   const { orientation, itemsToShow } = useCarousel();
   // pour horizontal : on veut flex-basis = 100% / itemsToShow
   // Si on affiche plusieurs items en horizontal, on calcule un flex-basis en %.
@@ -274,8 +297,9 @@ function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="carousel-item"
       className={cn(
         "min-w-0 shrink-0 grow-0 basis-full",
+        // "transition-all duration-100 ease-in-out",
+        // Si le nombre d'items à afficher est pair, on ajoute une translation pour centrer le carousel
         isEven && "translate-x-1/2",
-        // orientation === "horizontal" ? "pl-4" : "pt-4",
         className
       )}
       style={{ ...flexStyle }}
