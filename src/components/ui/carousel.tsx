@@ -68,11 +68,14 @@ function Carousel({
   ...props
 }: React.ComponentProps<"div"> & CarouselProps) {
   // Auto
-  const autoplayPlugin = React.useMemo(
-    () =>
-      autoplay ? Autoplay({ delay: autoplay, stopOnInteraction: false }) : null,
-    [autoplay]
-  );
+const autoplayPlugin = React.useMemo(() => {
+  if (!autoplay) return null;
+  const plugin = Autoplay({ delay: autoplay, stopOnInteraction: false });
+  // On bind pour préserver `this` à l’intérieur de play/stop
+  plugin.play = plugin.play.bind(plugin);
+  plugin.stop = plugin.stop.bind(plugin);
+  return plugin;
+}, [autoplay]);
 
   const classNamesPlugin = React.useMemo(
     () =>
